@@ -41,3 +41,19 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Next.js
+.next/
+out/
+node_modules/
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Prisma generated client
+/lib/generated/
+
+# EOD logs (local only)
+local/
