@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.LoginRepository">
+
+    <select id="findByEmployeeId" parameterType="String" resultType="UserVo">
+        SELECT id, employeeId, name, email, department, position, phone, role, passwordHash
+        FROM user
+        WHERE employeeId = #{employeeId}
+          AND isActive = 1
+    </select>
+
+</mapper>
