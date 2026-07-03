@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.ContentRepository">
+
+    <select id="findPublished" resultType="ContentVo">
+        SELECT id, type, title, body
+        FROM content
+        WHERE isPublished = 1
+        ORDER BY createdAt DESC
+    </select>
+
+</mapper>

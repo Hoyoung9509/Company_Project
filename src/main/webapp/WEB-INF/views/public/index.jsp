@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,18 +19,12 @@
 <div class="section">
     <h2>서비스 소개</h2>
     <div class="cards">
-        <div class="card">
-            <h3>서비스 A</h3>
-            <p>예시 서비스 설명입니다.</p>
-        </div>
-        <div class="card">
-            <h3>서비스 B</h3>
-            <p>예시 서비스 설명입니다.</p>
-        </div>
-        <div class="card">
-            <h3>서비스 C</h3>
-            <p>예시 서비스 설명입니다.</p>
-        </div>
+        <c:forEach var="item" items="${contentList}">
+            <div class="card">
+                <h3>${item.title}</h3>
+                <p>${item.body}</p>
+            </div>
+        </c:forEach>
     </div>
 </div>
 
