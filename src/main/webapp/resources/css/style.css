@@ -79,6 +79,22 @@ footer { background: #1a1a2e; color: #aaa; text-align: center; padding: 32px; fo
 /* ── Empty state ── */
 .empty-msg { text-align: center; color: #999; font-size: 15px; padding: 60px 0; }
 
+/* ── Public Detail ── */
+.back-link { display: inline-block; color: #666; font-size: 13px; text-decoration: none; margin-bottom: 20px; }
+.back-link:hover { color: #1a1a2e; }
+.public-detail-box { max-width: 760px; }
+.public-detail-box h2 { font-size: 1.6rem; color: #1a1a2e; margin-bottom: 8px; }
+.public-detail-meta { color: #999; font-size: 13px; margin-bottom: 20px; }
+.public-detail-box hr { border: none; border-top: 1px solid #eee; margin-bottom: 28px; }
+.public-detail-body { line-height: 1.9; color: #444; font-size: 15px; white-space: pre-wrap; }
+.btn-apply { display: inline-block; margin-top: 36px; padding: 12px 28px; background: #1a1a2e;
+             color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; }
+.btn-apply:hover { background: #2d2d4e; }
+.news-info a { color: inherit; text-decoration: none; }
+.news-info a:hover { text-decoration: underline; }
+.job-item a { color: inherit; text-decoration: none; }
+.job-item a:hover { text-decoration: underline; }
+
 /* ══════════════════════════════════════════
    Portal / Admin Layout
 ══════════════════════════════════════════ */

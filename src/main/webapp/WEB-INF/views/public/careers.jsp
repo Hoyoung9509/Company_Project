@@ -25,7 +25,7 @@
             <div class="job-list">
                 <c:forEach var="item" items="${contentList}">
                     <div class="job-item">
-                        <h3>${item.title}</h3>
+                        <h3><a href="/careers/${item.id}">${item.title}</a></h3>
                         <p>${item.body}</p>
                         <span class="job-date">${item.createdAt}</span>
                     </div>

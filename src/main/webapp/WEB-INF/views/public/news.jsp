@@ -26,7 +26,7 @@
                 <c:forEach var="item" items="${contentList}">
                     <div class="news-item">
                         <div class="news-info">
-                            <h3>${item.title}</h3>
+                            <h3><a href="/news/${item.id}">${item.title}</a></h3>
                             <p>${item.body}</p>
                         </div>
                         <span class="news-date">${item.createdAt}</span>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -41,10 +42,22 @@ public class PublicController {
         return "public/careers";
     }
 
+    @GetMapping("/careers/{id}")
+    public String careersDetail(@PathVariable String id, Model model) {
+        model.addAttribute("content", contentService.getById(id));
+        return "public/careers-detail";
+    }
+
     @GetMapping("/news")
     public String news(Model model) {
         model.addAttribute("contentList", contentService.getContentsByType("NOTICE_PUBLIC"));
         return "public/news";
+    }
+
+    @GetMapping("/news/{id}")
+    public String newsDetail(@PathVariable String id, Model model) {
+        model.addAttribute("content", contentService.getById(id));
+        return "public/news-detail";
     }
 
     @GetMapping("/contact")
