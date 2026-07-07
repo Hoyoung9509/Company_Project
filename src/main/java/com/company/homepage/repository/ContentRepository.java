@@ -7,4 +7,5 @@ import java.util.List;
 @Mapper
 public interface ContentRepository {
     List<ContentVo> findPublished();
+    List<ContentVo> findByType(String type);
 }

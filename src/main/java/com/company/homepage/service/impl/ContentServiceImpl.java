@@ -17,4 +17,9 @@ public class ContentServiceImpl implements ContentService {
     public List<ContentVo> getPublishedContents() {
         return contentRepository.findPublished();
     }
+
+    @Override
+    public List<ContentVo> getContentsByType(String type) {
+        return contentRepository.findByType(type);
+    }
 }
