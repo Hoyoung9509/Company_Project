@@ -2,6 +2,7 @@ package com.company.homepage.controller.portal;
 
 import com.company.homepage.service.LoginService;
 import com.company.homepage.vo.UserVo;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class LoginController {
     public String login(@RequestParam String employeeId,
                         @RequestParam String password,
                         HttpSession session,
+                        HttpServletRequest request,
                         Model model) {
         UserVo user = loginService.login(employeeId, password);
         if (user == null) {
@@ -32,6 +34,13 @@ public class LoginController {
             return "auth/login";
         }
         session.setAttribute("loginUser", user);
-        return "redirect:/portal";
+        String redirect = request.getParameter("redirect");
+        return "redirect:" + (redirect != null && !redirect.isBlank() ? redirect : "/portal");
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }

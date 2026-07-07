@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.UserRepository">
+
+    <select id="findAll" resultType="UserVo">
+        SELECT id, employeeId, name, email, department, position, phone, role, isActive
+        FROM user ORDER BY department, name
+    </select>
+
+    <select id="findActive" resultType="UserVo">
+        SELECT id, employeeId, name, email, department, position, phone, role
+        FROM user WHERE isActive = 1 ORDER BY department, name
+    </select>
+
+    <select id="findById" parameterType="String" resultType="UserVo">
+        SELECT id, employeeId, name, email, department, position, phone, role, isActive
+        FROM user WHERE id = #{id}
+    </select>
+
+    <update id="updateProfile" parameterType="UserVo">
+        UPDATE user SET name=#{name}, email=#{email}, phone=#{phone}, updatedAt=NOW()
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateRole">
+        UPDATE user SET role=#{role}, updatedAt=NOW() WHERE id = #{id}
+    </update>
+
+    <update id="updateActive">
+        UPDATE user SET isActive=#{isActive}, updatedAt=NOW() WHERE id = #{id}
+    </update>
+
+    <insert id="insert" parameterType="UserVo">
+        INSERT INTO user (id, employeeId, email, passwordHash, name, department, position, phone, role, isActive, updatedAt)
+        VALUES (UUID(), #{employeeId}, #{email}, #{passwordHash}, #{name}, #{department}, #{position}, #{phone}, #{role}, 1, NOW())
+    </insert>
+
+</mapper>

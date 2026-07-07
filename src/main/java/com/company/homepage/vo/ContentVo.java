@@ -8,5 +8,6 @@ public class ContentVo {
     private String type;
     private String title;
     private String body;
+    private int isPublished;
     private String createdAt;
 }

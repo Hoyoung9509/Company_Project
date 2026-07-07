@@ -19,4 +19,18 @@
         ORDER BY createdAt DESC
     </select>
 
+    <select id="findAll" resultType="ContentVo">
+        SELECT id, type, title, body, isPublished, createdAt
+        FROM content ORDER BY createdAt DESC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="ContentVo">
+        SELECT id, type, title, body, isPublished, createdAt
+        FROM content WHERE id = #{id}
+    </select>
+
+    <update id="updatePublished">
+        UPDATE content SET isPublished=#{isPublished}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
 </mapper>

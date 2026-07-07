@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.ApprovalRepository">
+
+    <select id="findByDrafterId" parameterType="String" resultType="ApprovalVo">
+        SELECT a.id, a.title, a.content, a.status, a.drafterId,
+               u.name AS drafterName, a.createdAt, a.updatedAt
+        FROM approval a LEFT JOIN user u ON a.drafterId = u.id
+        WHERE a.drafterId = #{drafterId}
+        ORDER BY a.createdAt DESC
+    </select>
+
+    <select id="findAll" resultType="ApprovalVo">
+        SELECT a.id, a.title, a.content, a.status, a.drafterId,
+               u.name AS drafterName, a.createdAt, a.updatedAt
+        FROM approval a LEFT JOIN user u ON a.drafterId = u.id
+        ORDER BY a.createdAt DESC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="ApprovalVo">
+        SELECT a.id, a.title, a.content, a.status, a.drafterId,
+               u.name AS drafterName, a.createdAt, a.updatedAt
+        FROM approval a LEFT JOIN user u ON a.drafterId = u.id
+        WHERE a.id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="ApprovalVo">
+        INSERT INTO approval (id, title, content, status, drafterId, updatedAt)
+        VALUES (UUID(), #{title}, #{content}, #{status}, #{drafterId}, NOW())
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE approval SET status=#{status}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+</mapper>

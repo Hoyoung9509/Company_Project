@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.AuditLogRepository">
+
+    <select id="findAll" resultType="AuditLogVo">
+        SELECT al.id, al.adminId, u.name AS adminName, al.action,
+               al.targetType, al.targetId, al.`before`, al.`after`, al.createdAt
+        FROM auditlog al LEFT JOIN user u ON al.adminId = u.id
+        ORDER BY al.createdAt DESC
+        LIMIT 200
+    </select>
+
+    <insert id="insert" parameterType="AuditLogVo">
+        INSERT INTO auditlog (id, adminId, action, targetType, targetId, `before`, `after`)
+        VALUES (UUID(), #{adminId}, #{action}, #{targetType}, #{targetId}, #{before}, #{after})
+    </insert>
+
+</mapper>

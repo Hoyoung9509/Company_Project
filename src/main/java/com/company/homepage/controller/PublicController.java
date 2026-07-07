@@ -20,7 +20,7 @@ public class PublicController {
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("companyName", "회사 홈페이지");
-        model.addAttribute("contentList", contentService.getPublishedContents());
+        model.addAttribute("contentList", contentService.getContentsByType("SERVICE"));
         return "public/index";
     }
 

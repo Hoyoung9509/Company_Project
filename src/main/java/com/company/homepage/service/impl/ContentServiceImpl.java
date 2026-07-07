@@ -22,4 +22,19 @@ public class ContentServiceImpl implements ContentService {
     public List<ContentVo> getContentsByType(String type) {
         return contentRepository.findByType(type);
     }
+
+    @Override
+    public List<ContentVo> getAllContents() {
+        return contentRepository.findAll();
+    }
+
+    @Override
+    public ContentVo getById(String id) {
+        return contentRepository.findById(id);
+    }
+
+    @Override
+    public void setPublished(String id, boolean published) {
+        contentRepository.updatePublished(id, published ? 1 : 0);
+    }
 }

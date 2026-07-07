@@ -8,4 +8,8 @@ import java.util.List;
 public interface ContentRepository {
     List<ContentVo> findPublished();
     List<ContentVo> findByType(String type);
+    List<ContentVo> findAll();
+    ContentVo findById(String id);
+    void updatePublished(@org.apache.ibatis.annotations.Param("id") String id,
+                         @org.apache.ibatis.annotations.Param("isPublished") int isPublished);
 }
