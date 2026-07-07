@@ -1,26 +1,23 @@
 # AI Coding Agent General Development Principles
 
-You must strictly adhere to these core software engineering principles for ALL tasks, regardless of the change's size or scope.
+## 1. 영향 분석 & Blast Radius 체크
 
-## 1. Impact Analysis & Blast Radius Check
+- 함수·클래스·Mapper를 변경하기 전에 호출부를 추적한다.
+- **Cascade 수정:** Interceptor·세션 헬퍼·공통 VO를 바꾸면 영향받는 모든 Controller/Service를 같은 세션에 수정한다. 절반만 바뀐 상태로 두지 않는다.
 
-- **Analyze Dependencies:** Before altering any function, variable, hook, or component, trace where it is being used across the codebase.
-- **Cascade Fixes:** If your changes break signatures, types, or expectations in other files, you must proactively update those affected modules in the same session. Never leave the codebase in a half-broken state.
+## 2. DRY & 재사용성
 
-## 2. DRY (Don't Repeat Yourself) & Reusability
+- 권한 체크·세션 조회·공통 예외 처리 등 반복 로직은 공용 클래스로 추출한다.
+- 기존 프로젝트 유틸·컨벤션을 먼저 확인하고, 없을 때만 새로 만든다.
 
-- **Eliminate Duplication:** If you find yourself writing code that already exists, refactor it. Do not copy-paste chunks of logic.
-- **Promote Reusability:** Extract repetitive patterns, complex calculations, or shared UI blocks into clean, standalone helper functions, custom hooks, or utility components.
-- **Consistency:** Prioritize leveraging existing project utilities or framework conventions over installing new libraries or reinventing wheels.
+## 3. 읽기 좋은 코드 & 주석
 
-## 3. Clean, Maintainable Code & Concise Comments
+- 변수·메서드명으로 의도를 표현한다. 코드가 무엇을 하는지 반복하는 주석은 쓰지 않는다.
+- **왜** 이 로직이 필요한지 비자명한 경우에만 주석을 단다.
+- Javadoc(`/** */`)은 외부에서 호출하는 Service 인터페이스 메서드, 공통 유틸 클래스에 붙인다. Controller·VO·단순 getter는 생략한다.
 
-- **Readability Over Cleverness:** Write self-documenting code with clear, descriptive naming conventions for variables and functions.
-- **Explain the "Why", Not the "What":** Add meaningful, concise inline comments. Avoid redundant comments that simply restate what the code line does. Instead, briefly explain *why* a non-obvious logic or constraint was introduced.
-- **No Over-Commenting:** Keep comments minimal, focused, and neat. Avoid dense walls of text in the source files.
-- **JSDoc for Hover Docs:** Attach `/** */` doc-comments to meaningful exported functions, components, classes and their public methods, hooks, server actions, and non-trivial exported constants — so they surface on IDE hover (plain `//` comments do NOT). New code you author should ship with JSDoc. Skip trivial re-exports, barrel files, self-explanatory type/props aliases, and simple wrappers (if a summary would just restate the name, skip it). When a `//` note sits *directly above* a declaration and describes it, convert that block to `/** */` (preserving ⚠️/🙋/doc links); leave file-header and in-body/inline comments as `//`. Keep to one concise Korean summary line; add `@param`/`@returns` only when params are several or non-obvious — never restate the TS type.
+## 4. 기존 패턴 존중
 
-## 4. Context Preservation
-
-- **Respect Existing Patterns:** Align your code style with the existing codebase (e.g., naming style, error handling patterns, folder structures).
-- **Consult CLAUDE Rules:** Always cross-reference architectural rules specified in other `claude/` files (such as `3-architecture.md` for session/auth constraints or `4-prisma-rules.md` for migration rules) before modifying files. Pay special attention when touching auth helpers (`requireEmployee`, `requireAdmin`) or approval state transitions — these have cascade effects across many routes.
+- 프로젝트의 네이밍·패키지 구조·Mapper XML 스타일을 따른다.
+- `claude/3-architecture.md`의 인증·세션 설계, `claude/4-mybatis-rules.md`의 Mapper 규칙을 항상 먼저 확인한다.
+- 인증 Interceptor(`AuthInterceptor`, `AdminInterceptor`)나 결재 상태 전환 로직을 건드리면 영향받는 모든 경로를 같은 세션에 수정한다.

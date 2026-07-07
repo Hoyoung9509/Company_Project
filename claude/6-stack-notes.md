@@ -1,52 +1,94 @@
-# 기술 스택 주의사항 (Next.js 16 / React 19 / Tailwind v4)
+# 기술 스택 주의사항
 
-기술 스택 확정 후 이 파일을 검토한다. 학습 데이터의 이전 버전 관행과 다른 부분을 정리했다.
-일반 아키텍처 원칙과 세션·인증 설계는 `3-architecture.md`를 참조한다.
-
----
-
-## Next.js 16 (App Router)
-
-### `params` / `searchParams`는 Promise다
-
-`page.tsx` / `layout.tsx`에서 반드시 `await`한 뒤 필드를 읽어야 한다. 동기 구조 분해는 Next.js 16 오류다.
-
-```ts
-// ✅ 올바른 방법
-const { id } = await params;
-
-// ❌ Next.js 16 오류
-const { id } = params;
-```
-
-### Server vs Client 분리
-
-- 데이터 패칭·DB 접근은 **Server Component**에서 처리한다.
-- `'use client'`는 상태·이벤트가 필요한 조각에만 붙인다: 결재 서류 에디터, 문의 폼, 모달, 동적 필터 등.
-- 공개 페이지(회사소개·서비스·채용·공지)는 Server Component로 렌더링하여 SEO를 보장한다.
-
-### Server Action 뮤테이션
-
-- 생성·수정에는 Server Action을 사용한다. React 19 `useActionState`로 pending/error 상태를 관리한다.
-- 제출 버튼에 `disabled` / 로딩 상태를 반드시 붙인다 — 중복 제출 방지.
-- 결재 승인·반려처럼 되돌릴 수 없는 작업에는 확인 다이얼로그를 추가한다.
-
-### 미들웨어에서 세션 체크
-
-Next.js `middleware.ts`에서 쿠키의 `sessionId`를 읽어 `/portal`, `/admin` 경로를 보호한다.
-미들웨어는 Edge Runtime이므로 Prisma를 직접 호출할 수 없다 — 가벼운 쿠키 존재 여부만 확인하고, 실제 권한 검증은 각 Server Action / Route Handler에서 `requireEmployee()` / `requireAdmin()`으로 수행한다.
+이 파일은 각 기술의 버전별 특이사항과 이 프로젝트에서 확인된 호환성 이슈를 기록한다.
 
 ---
 
-## Tailwind CSS v4
+## Spring Boot 3.3.0
 
-스타일시트 진입점에 `@import "tailwindcss";`를 사용한다. 이전 버전의 `@tailwind base; @tailwind components; @tailwind utilities;` 방식이 아니다. 테마 설정은 CSS의 `@theme` 블록으로, `@tailwindcss/postcss` 기반이다. `tailwind.config.js`를 기반 설정으로 사용하지 않는다.
+- Jakarta EE 10 기반 — `javax.*` 대신 `jakarta.*` 사용 (import 주의)
+  - `jakarta.servlet.http.HttpSession`
+  - `jakarta.servlet.http.HttpServletRequest`
+- `io.spring.dependency-management` 플러그인이 Gradle 9과 충돌 → **제거됨**
+  - 대신 `implementation(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))`으로 BOM 적용
 
 ---
 
-## 파일 업로드 (결재 서류 첨부)
+## Gradle 9.0.0 (Kotlin DSL)
 
-- 파일 크기 제한을 서버 사이드에서 검증한다. 클라이언트 검증은 UX용이며 신뢰하지 않는다.
-- 허용 파일 형식(MIME type)을 서버에서 재확인한다.
-- 업로드 실패 시 사용자에게 명확한 오류 메시지를 표시한다 (용량 초과·형식 오류 구분).
-- 업로드된 파일을 public 경로에 직접 노출하지 않는다. 접근 권한 체크 후 서빙한다.
+- `runtimeOnly("com.mysql:mysql-connector-j")` 사용 시 **"Cannot mutate the dependency attributes of configuration ':runtimeOnly'"** 에러 발생
+  - `implementation("com.mysql:mysql-connector-j")`으로 변경 — 해결됨
+- BOM(`platform()`)은 `compileOnly`, `annotationProcessor` 설정에 **자동 전파되지 않음**
+  - Lombok 버전은 반드시 명시: `compileOnly("org.projectlombok:lombok:1.18.32")` + `annotationProcessor("org.projectlombok:lombok:1.18.32")`
+
+---
+
+## JSP + tomcat-embed-jasper
+
+- Spring Boot 3 내장 Tomcat에서 JSP를 쓰려면 `tomcat-embed-jasper` 의존성 필수
+- `application.yml` ViewResolver 설정:
+  ```yaml
+  spring.mvc.view.prefix: /WEB-INF/views/
+  spring.mvc.view.suffix: .jsp
+  ```
+- 포함(include)되는 JSP(`header.jsp`, `footer.jsp`)에는 `contentType` 지시자 사용 금지
+  - 부모 JSP와 중복 시 **"illegal to have multiple occurrences of contentType"** Jasper 에러 발생
+  - `<%@ page pageEncoding="UTF-8" %>`만 사용
+
+---
+
+## MyBatis 3.0.3 (mybatis-spring-boot-starter)
+
+- `application.yml` 설정:
+  ```yaml
+  mybatis:
+    mapper-locations: classpath:mapper/**/*.xml
+    type-aliases-package: com.company.homepage.vo
+    configuration:
+      map-underscore-to-camel-case: true
+  ```
+- `map-underscore-to-camel-case: true`는 `snake_case → camelCase` 변환만 한다.
+  - `isPublished`, `createdAt` 같이 이미 camelCase인 DB 컬럼명은 변환하지 않는다 — 그대로 매핑.
+- Mapper 인터페이스에 `@Mapper` 어노테이션 또는 메인 클래스에 `@MapperScan` 필요
+
+---
+
+## Lombok 1.18.32
+
+- `@Data` — getter/setter/equals/hashCode/toString 자동 생성
+- `@RequiredArgsConstructor` — `final` 필드 생성자 자동 생성 (Spring DI와 함께 사용)
+- 버전을 `compileOnly`와 `annotationProcessor` 양쪽에 **반드시 명시**
+
+---
+
+## JSTL 3.0.1
+
+- 의존성:
+  ```
+  implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api")
+  implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
+  ```
+- JSP 상단 taglib 선언: `<%@ taglib prefix="c" uri="jakarta.tags.core" %>`
+
+---
+
+## MySQL 8.0
+
+- JDBC URL: `jdbc:mysql://localhost:3306/company_homepage?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8`
+- 로컬 개발: root/root
+- Driver: `com.mysql.cj.jdbc.Driver`
+
+---
+
+## PowerShell 파일 작성 주의사항
+
+- `Out-File -Encoding utf8` 또는 `Set-Content -Encoding utf8`은 **UTF-8 BOM**을 추가한다
+  - Java 컴파일러가 `﻿` illegal character 에러를 낸다
+  - 반드시 `[System.IO.File]::WriteAllText(path, content, New-Object System.Text.UTF8Encoding $false)` 사용
+
+---
+
+## Elasticsearch (예정)
+
+- 현재 미구성. 도입 결정 시 이 섹션에 버전·설정·주의사항 추가.
+- Spring Data Elasticsearch 또는 High-Level REST Client 방향으로 검토 예정.
