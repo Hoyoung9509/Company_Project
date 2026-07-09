@@ -4,7 +4,7 @@
 <html lang="ko">
 <head><meta charset="UTF-8"><title>문의 관리 - 어드민</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/resources/css/style.css?v=7"></head>
+<link rel="stylesheet" href="/resources/css/style.css?v=8"></head>
 <body class="admin-body">
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">
