@@ -12,4 +12,6 @@ public interface ContentRepository {
     ContentVo findById(String id);
     void updatePublished(@org.apache.ibatis.annotations.Param("id") String id,
                          @org.apache.ibatis.annotations.Param("isPublished") int isPublished);
+    void update(ContentVo content);
+    void delete(String id);
 }

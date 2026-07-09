@@ -2,16 +2,23 @@ package com.company.homepage.service.impl;
 
 import com.company.homepage.repository.ContentRepository;
 import com.company.homepage.service.ContentService;
+import com.company.homepage.service.ElasticsearchSyncService;
 import com.company.homepage.vo.ContentVo;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ContentServiceImpl implements ContentService {
 
     private final ContentRepository contentRepository;
+    private final ElasticsearchSyncService esSyncService;
+
+    public ContentServiceImpl(ContentRepository contentRepository,
+                               @Lazy ElasticsearchSyncService esSyncService) {
+        this.contentRepository = contentRepository;
+        this.esSyncService = esSyncService;
+    }
 
     @Override
     public List<ContentVo> getPublishedContents() {
@@ -36,5 +43,20 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public void setPublished(String id, boolean published) {
         contentRepository.updatePublished(id, published ? 1 : 0);
+        ContentVo vo = contentRepository.findById(id);
+        esSyncService.indexContent(vo);
+    }
+
+    @Override
+    public void update(ContentVo content) {
+        contentRepository.update(content);
+        ContentVo updated = contentRepository.findById(content.getId());
+        esSyncService.indexContent(updated);
+    }
+
+    @Override
+    public void delete(String id) {
+        contentRepository.delete(id);
+        esSyncService.deleteContent(id);
     }
 }

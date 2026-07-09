@@ -1,6 +1,7 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.3.0"
+    war
+    id("org.springframework.boot") version "3.4.5"
 }
 
 group = "com.company"
@@ -17,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.3.0"))
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.5"))
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
@@ -25,6 +26,7 @@ dependencies {
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
     implementation("com.mysql:mysql-connector-j")
+    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
