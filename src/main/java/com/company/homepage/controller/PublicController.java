@@ -20,7 +20,7 @@ public class PublicController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("companyName", "회사 홈페이지");
+        model.addAttribute("companyName", "JuniMusic");
         model.addAttribute("contentList", contentService.getContentsByType("SERVICE"));
         return "public/index";
     }
@@ -34,6 +34,12 @@ public class PublicController {
     public String services(Model model) {
         model.addAttribute("contentList", contentService.getContentsByType("SERVICE"));
         return "public/services";
+    }
+
+    @GetMapping("/works")
+    public String works(Model model) {
+        model.addAttribute("contentList", contentService.getContentsByType("WORK"));
+        return "public/works";
     }
 
     @GetMapping("/careers")
