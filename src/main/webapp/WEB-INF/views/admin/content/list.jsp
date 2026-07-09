@@ -23,7 +23,7 @@
             ${group.value[0].typeLabel}
             <span class="content-group-count">${fn:length(group.value)}건</span>
             <button type="submit" form="bulkDeleteForm_${group.key}" id="bulkDeleteBtn_${group.key}"
-                    class="btn-sm btn-danger" style="display:none;margin-left:auto;">선택삭제</button>
+                    class="btn-sm btn-danger" style="display:none;">선택삭제</button>
         </h3>
         <table class="data-table">
             <thead>
