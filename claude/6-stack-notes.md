@@ -92,3 +92,15 @@
 
 - 현재 미구성. 도입 결정 시 이 섹션에 버전·설정·주의사항 추가.
 - Spring Data Elasticsearch 또는 High-Level REST Client 방향으로 검토 예정.
+
+---
+
+## Cloudflare Tunnel (로컬 PC 배포)
+
+- 로컬 PC를 `cloudflared` 터널로 외부에 노출할 때 사용. 포트포워딩·방화벽 설정 불필요 (아웃바운드 전용 연결이라 인바운드 포트를 안 염).
+- Quick Tunnel(`tunnel --url ...`)은 무료·계정 불필요하지만 재시작마다 URL이 바뀜. 영구 URL이 필요하면 `tunnel login` → `tunnel create <이름>` → `tunnel route dns <이름> <도메인>` → `tunnel run <이름>` 순서로 인증된 터널을 만든다. 설정은 `%USERPROFILE%\.cloudflared\config.yml`에 저장됨 (저장소 밖).
+- `cloudflared.exe`를 winget으로 설치한 직후에는 현재 셸 세션의 PATH가 갱신되지 않는다. 설치 경로(`C:\Program Files (x86)\cloudflared\cloudflared.exe`)를 직접 지정하거나 새 셸을 열어야 한다.
+- Git Bash에서 `cmd.exe /c`로 배치 파일을 헤드리스(콘솔 없음 + 출력 리다이렉트) 실행하면, 그 안에서 또 다른 `.bat`(예: `gradlew.bat`)을 `call`할 때 "인식할 수 없는 명령"으로 실패하는 경우가 있다. `.exe`/`.bat`을 `Start-Process`의 `-FilePath`로 직접 지정하거나, 콘솔이 있는 상태로 실행하면 해결됨.
+- **Cloudflare는 정적 파일(.css, .js 등)을 확장자 기준으로 엣지에서 자동 캐싱한다** (기본 4시간, `Cache-Control: max-age=14400`). HTML은 동적 페이지라 캐싱 안 되지만(`CF-Cache-Status: DYNAMIC`), CSS/JS는 캐싱되어 `CF-Cache-Status: HIT`이 뜬다.
+  - **증상**: CSS를 수정하고 서버를 재기동해도 실제 기기(특히 모바일)에는 반영이 안 됨. HTML은 매번 새로 오니 새 메뉴/텍스트는 보이는데, 레이아웃을 담당하는 CSS만 옛날 버전이라 반응형이 깨진 것처럼 보임.
+  - **해결**: `<link>` 경로에 `?v=N` 쿼리스트링을 붙여 캐시를 무효화한다 (예: `style.css?v=2`). CSS를 수정할 때마다 버전 숫자를 올릴 것. `curl -D - <url>`로 응답 헤더의 `Cf-Cache-Status`(HIT/MISS/DYNAMIC)를 확인하면 캐싱 때문인지 바로 판별 가능.
