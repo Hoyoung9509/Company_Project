@@ -5,14 +5,14 @@
 <mapper namespace="com.company.homepage.repository.ContentRepository">
 
     <select id="findPublished" resultType="ContentVo">
-        SELECT id, type, title, body, mediaUrl, createdAt
+        SELECT id, type, title, body, mediaUrl, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
         FROM content
         WHERE isPublished = 1
         ORDER BY createdAt DESC
     </select>
 
     <select id="findByType" parameterType="String" resultType="ContentVo">
-        SELECT id, type, title, body, mediaUrl, createdAt
+        SELECT id, type, title, body, mediaUrl, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
         FROM content
         WHERE type = #{type}
           AND isPublished = 1
@@ -20,12 +20,12 @@
     </select>
 
     <select id="findAll" resultType="ContentVo">
-        SELECT id, type, title, body, mediaUrl, isPublished, createdAt
+        SELECT id, type, title, body, mediaUrl, isPublished, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
         FROM content ORDER BY createdAt DESC
     </select>
 
     <select id="findById" parameterType="String" resultType="ContentVo">
-        SELECT id, type, title, body, mediaUrl, isPublished, createdAt
+        SELECT id, type, title, body, mediaUrl, isPublished, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
         FROM content WHERE id = #{id}
     </select>
 
