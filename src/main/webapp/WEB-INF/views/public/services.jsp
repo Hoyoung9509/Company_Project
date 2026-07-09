@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>서비스 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=5">
+    <link rel="stylesheet" href="/resources/css/style.css?v=6">
 </head>
 <body>
 
