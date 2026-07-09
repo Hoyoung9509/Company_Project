@@ -6,11 +6,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업물 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=6">
+    <link rel="stylesheet" href="/resources/css/style.css?v=7">
 </head>
 <body>
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+<% if (_loginUser != null && "ADMIN".equals(_loginUser.getRole())) { %>
+<a href="/admin/content/new?type=WORK&redirectTo=/works" class="fab-add" title="작업물 등록">+</a>
+<% } %>
 
 <section class="page-banner">
     <h1>작업물</h1>

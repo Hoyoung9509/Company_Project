@@ -40,17 +40,27 @@ public class AdminContentController {
     }
 
     @GetMapping("/admin/content/new")
-    public String newForm(HttpSession session, Model model) {
+    public String newForm(@RequestParam(required = false) String type,
+                           @RequestParam(required = false) String redirectTo,
+                           HttpSession session, Model model) {
         model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
+        model.addAttribute("presetType", type);
+        model.addAttribute("redirectTo", redirectTo);
         return "admin/content/new";
     }
 
     @PostMapping("/admin/content/new")
-    public String create(@ModelAttribute ContentVo content, HttpSession session) {
+    public String create(@ModelAttribute ContentVo content,
+                          @RequestParam(required = false) String redirectTo,
+                          HttpSession session) {
         String adminId = SessionUtil.getLoginUser(session).getId();
         contentService.create(content);
         auditLogService.log(adminId, "CONTENT_CREATE", "CONTENT", content.getId(), null, content.getTitle());
-        return "redirect:/admin/content";
+        return "redirect:" + (isSafeRedirect(redirectTo) ? redirectTo : "/admin/content");
+    }
+
+    private boolean isSafeRedirect(String redirectTo) {
+        return redirectTo != null && redirectTo.startsWith("/") && !redirectTo.startsWith("//");
     }
 
     @PostMapping("/admin/content/{id}/publish")

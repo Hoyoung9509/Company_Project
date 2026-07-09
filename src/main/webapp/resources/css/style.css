@@ -256,6 +256,15 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .btn-danger:hover    { background: #c53030; }
 .btn-portal:hover    { background: #2A1B30; }
 
+/* ── Admin quick-add FAB (public pages) ── */
+.fab-add {
+    position: fixed; right: 32px; bottom: 32px; width: 56px; height: 56px;
+    border-radius: 50%; background: #FF7A59; color: #fff; font-size: 28px; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.25); z-index: 999;
+}
+.fab-add:hover { background: #E8602F; }
+
 /* ── Header Search ── */
 .header-search { display: flex; align-items: center; gap: 4px; margin-left: 8px; }
 .header-search input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; font-size: 13px; width: 140px; outline: none; }
