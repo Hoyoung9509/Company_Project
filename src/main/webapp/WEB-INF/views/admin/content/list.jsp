@@ -22,6 +22,8 @@
         <h3 class="content-group-title">
             ${group.value[0].typeLabel}
             <span class="content-group-count">${fn:length(group.value)}건</span>
+            <button type="submit" form="bulkDeleteForm_${group.key}" id="bulkDeleteBtn_${group.key}"
+                    class="btn-sm btn-danger" style="display:none;margin-left:auto;">선택삭제</button>
         </h3>
         <table class="data-table">
             <thead>
@@ -30,20 +32,17 @@
                 <th>제목</th>
                 <th>공개</th>
                 <th>등록일</th>
-                <th style="display:flex;justify-content:space-between;align-items:center;">
-                    <span>관리</span>
-                    <button type="submit" form="bulkDeleteForm_${group.key}" class="btn-sm btn-danger">선택삭제</button>
-                </th>
+                <th>관리</th>
             </tr>
             </thead>
             <tbody>
             <c:forEach var="c" items="${group.value}">
                 <tr>
-                    <td><input type="checkbox" name="ids" value="${c.id}" form="bulkDeleteForm_${group.key}" class="content-checkbox-${group.key}" style="width:auto;"></td>
-                    <td>${c.title}</td>
+                    <td><input type="checkbox" name="ids" value="${c.id}" form="bulkDeleteForm_${group.key}" class="content-checkbox-${group.key}" onchange="updateBulkDeleteButton('${group.key}')" style="width:auto;"></td>
+                    <td class="title-cell" title="${c.title}">${c.title}</td>
                     <td><span class="badge ${c.isPublished==1?'badge-APPROVED':'badge-REJECTED'}">${c.isPublished==1?'공개':'비공개'}</span></td>
                     <td>${c.createdAt}</td>
-                    <td style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
+                    <td style="display:flex;gap:6px;flex-wrap:wrap;">
                         <c:choose>
                             <c:when test="${c.isPublished == 1}">
                                 <form method="post" action="/admin/content/${c.id}/unpublish" style="display:inline">
@@ -74,6 +73,16 @@ function toggleGroupCheckboxes(master, type) {
     document.querySelectorAll('.content-checkbox-' + type).forEach(function (cb) {
         cb.checked = master.checked;
     });
+    updateBulkDeleteButton(type);
+}
+
+function updateBulkDeleteButton(type) {
+    var anyChecked = Array.prototype.some.call(
+        document.querySelectorAll('.content-checkbox-' + type),
+        function (cb) { return cb.checked; }
+    );
+    var btn = document.getElementById('bulkDeleteBtn_' + type);
+    if (btn) btn.style.display = anyChecked ? '' : 'none';
 }
 </script>
 </main>
