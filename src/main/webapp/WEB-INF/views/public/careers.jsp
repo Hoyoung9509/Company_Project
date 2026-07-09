@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채용 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=6">
+    <link rel="stylesheet" href="/resources/css/style.css?v=7">
 </head>
 <body>
 
