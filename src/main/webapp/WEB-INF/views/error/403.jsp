@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>403 - 접근 거부</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=4">
+    <link rel="stylesheet" href="/resources/css/style.css?v=5">
 </head>
 <body style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px;">
     <h1 style="font-size:4rem;color:#1a1a2e;">403</h1>

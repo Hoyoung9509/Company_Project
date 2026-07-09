@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업물 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=4">
+    <link rel="stylesheet" href="/resources/css/style.css?v=5">
 </head>
 <body>
 
@@ -28,11 +28,12 @@
                     <div class="work-card">
                         <c:choose>
                             <c:when test="${not empty item.youtubeId}">
-                                <a href="https://www.youtube.com/watch?v=${item.youtubeId}" target="_blank" rel="noopener"
-                                   class="work-thumb work-thumb-video"
-                                   style="background-image:url('https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg');">
+                                <div class="work-thumb work-thumb-video" data-youtube-id="${item.youtubeId}"
+                                     style="background-image:url('https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg');"
+                                     onclick="juniPlayInlineVideo(this)" role="button" tabindex="0"
+                                     aria-label="영상 재생">
                                     <span class="play-icon">▶</span>
-                                </a>
+                                </div>
                             </c:when>
                             <c:otherwise>
                                 <div class="work-thumb"><span class="play-icon">▶</span></div>
@@ -50,6 +51,25 @@
 </div>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>
+
+<script>
+function juniPlayInlineVideo(el) {
+    var id = el.getAttribute('data-youtube-id');
+    var iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+    iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.border = '0';
+    el.classList.remove('work-thumb-video');
+    el.removeAttribute('onclick');
+    el.removeAttribute('role');
+    el.removeAttribute('tabindex');
+    el.innerHTML = '';
+    el.appendChild(iframe);
+}
+</script>
 
 </body>
 </html>

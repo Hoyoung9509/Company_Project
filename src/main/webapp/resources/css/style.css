@@ -60,7 +60,7 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .work-thumb { aspect-ratio: 16 / 9; background: linear-gradient(135deg, #FF7A59, #FFC93C);
               display: flex; align-items: center; justify-content: center;
               background-size: cover; background-position: center; }
-.work-thumb-video { position: relative; }
+.work-thumb-video { position: relative; cursor: pointer; }
 .work-thumb-video::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.15); }
 .work-thumb-video .play-icon { position: relative; z-index: 1; }
 .play-icon { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.9);
