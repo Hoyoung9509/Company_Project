@@ -30,7 +30,10 @@
                 <th>제목</th>
                 <th>공개</th>
                 <th>등록일</th>
-                <th>관리 <button type="submit" form="bulkDeleteForm_${group.key}" class="btn-sm btn-danger" style="margin-left:8px;">선택삭제</button></th>
+                <th>
+                    <div>관리</div>
+                    <button type="submit" form="bulkDeleteForm_${group.key}" class="btn-sm btn-danger" style="margin-top:6px;">선택삭제</button>
+                </th>
             </tr>
             </thead>
             <tbody>
