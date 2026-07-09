@@ -5,8 +5,24 @@
 <mapper namespace="com.company.homepage.repository.ContactRepository">
 
     <insert id="insert" parameterType="ContactVo">
-        INSERT INTO contact (name, email, phone, message, createdAt)
-        VALUES (#{name}, #{email}, #{phone}, #{message}, NOW())
+        INSERT INTO contact (name, email, phone, title, message, createdAt)
+        VALUES (#{name}, #{email}, #{phone}, #{title}, #{message}, NOW())
     </insert>
+
+    <select id="findAll" resultType="ContactVo">
+        SELECT id, name, email, phone, title, message, createdAt
+        FROM contact
+        ORDER BY createdAt DESC
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="ContactVo">
+        SELECT id, name, email, phone, title, message, createdAt
+        FROM contact
+        WHERE id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM contact WHERE id = #{id}
+    </delete>
 
 </mapper>

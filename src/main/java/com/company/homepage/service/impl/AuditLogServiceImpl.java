@@ -23,8 +23,13 @@ public class AuditLogServiceImpl implements AuditLogService {
         log.setAction(action);
         log.setTargetType(targetType);
         log.setTargetId(targetId);
-        log.setBefore(before);
-        log.setAfter(after);
+        log.setBefore(toJson(before));
+        log.setAfter(toJson(after));
         auditLogRepository.insert(log);
+    }
+
+    private String toJson(String value) {
+        if (value == null) return null;
+        return "\"" + value.replace("\\", "\\\\").replace("\"", "\\\"") + "\"";
     }
 }

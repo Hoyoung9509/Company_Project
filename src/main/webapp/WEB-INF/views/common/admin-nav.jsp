@@ -6,6 +6,7 @@
         <a href="/admin/users">계정 관리</a>
         <a href="/admin/content">콘텐츠 관리</a>
         <a href="/admin/approvals">결재 관리</a>
+        <a href="/admin/contacts">문의 관리</a>
         <a href="/admin/logs">감사 로그</a>
     </nav>
     <div class="sidebar-footer">
