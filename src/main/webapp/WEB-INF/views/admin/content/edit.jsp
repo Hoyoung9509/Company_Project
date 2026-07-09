@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head><meta charset="UTF-8"><title>공지 수정 - 어드민</title>
@@ -23,10 +24,12 @@
             <label>내용 *</label>
             <textarea name="body" rows="8" required>${content.body}</textarea>
         </div>
-        <div class="form-group">
-            <label>영상 링크 (유튜브, 선택)</label>
-            <input type="text" name="mediaUrl" value="${content.mediaUrl}" placeholder="https://www.youtube.com/watch?v=...">
-        </div>
+        <c:if test="${content.type == 'WORK'}">
+            <div class="form-group">
+                <label>영상 링크 (유튜브, 선택)</label>
+                <input type="text" name="mediaUrl" value="${content.mediaUrl}" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+        </c:if>
         <div class="btn-group">
             <a href="/admin/content" class="btn-secondary">취소</a>
             <button type="submit" class="btn-primary">저장</button>
