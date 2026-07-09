@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div class="sidebar">
-    <div class="sidebar-logo"><a href="/portal">JuniMusic</a></div>
+    <div class="sidebar-logo"><a href="/">JuniMusic</a></div>
     <nav class="sidebar-nav">
         <a href="/portal">대시보드</a>
         <a href="/portal/notice">공지사항</a>

@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div class="admin-sidebar">
-    <div class="sidebar-logo"><a href="/admin">Admin</a></div>
+    <div class="sidebar-logo"><a href="/">JuniMusic</a></div>
     <nav class="sidebar-nav">
         <a href="/admin">대시보드</a>
         <a href="/admin/users">계정 관리</a>
