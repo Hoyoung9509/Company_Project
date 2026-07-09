@@ -39,6 +39,20 @@ public class AdminContentController {
         return "admin/content/list";
     }
 
+    @GetMapping("/admin/content/new")
+    public String newForm(HttpSession session, Model model) {
+        model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
+        return "admin/content/new";
+    }
+
+    @PostMapping("/admin/content/new")
+    public String create(@ModelAttribute ContentVo content, HttpSession session) {
+        String adminId = SessionUtil.getLoginUser(session).getId();
+        contentService.create(content);
+        auditLogService.log(adminId, "CONTENT_CREATE", "CONTENT", content.getId(), null, content.getTitle());
+        return "redirect:/admin/content";
+    }
+
     @PostMapping("/admin/content/{id}/publish")
     public String publish(@PathVariable String id, HttpSession session) {
         String adminId = SessionUtil.getLoginUser(session).getId();

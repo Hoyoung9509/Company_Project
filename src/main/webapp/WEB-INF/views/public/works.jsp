@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업물 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=5">
+    <link rel="stylesheet" href="/resources/css/style.css?v=6">
 </head>
 <body>
 
@@ -48,6 +48,14 @@
             </div>
         </c:otherwise>
     </c:choose>
+
+    <c:if test="${totalPages > 1}">
+        <div class="pagination">
+            <c:forEach begin="1" end="${totalPages}" var="p">
+                <a href="/works?page=${p}" class="page-link${p == currentPage ? ' active' : ''}">${p}</a>
+            </c:forEach>
+        </div>
+    </c:if>
 </div>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

@@ -70,6 +70,14 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .work-info h3 { font-size: 1.05rem; margin-bottom: 8px; font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; color: #3D2645; }
 .work-info p  { color: #666; font-size: 13px; line-height: 1.7; }
 
+/* ── Pagination ── */
+.pagination { display: flex; justify-content: center; gap: 8px; margin-top: 40px; flex-wrap: wrap; }
+.page-link { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px;
+             padding: 0 10px; border-radius: 8px; background: #fff; border: 1px solid #eee;
+             color: #3D2645; text-decoration: none; font-size: 14px; }
+.page-link:hover { background: #FFF3E6; }
+.page-link.active { background: #FF7A59; border-color: #FF7A59; color: #fff; }
+
 /* ── Job list (careers) ── */
 .job-list { display: flex; flex-direction: column; gap: 16px; }
 .job-item { background: #fff; border: 1px solid #eee; border-radius: 16px; padding: 28px 32px; }

@@ -37,6 +37,11 @@
         UPDATE content SET title=#{title}, body=#{body}, mediaUrl=#{mediaUrl}, updatedAt=NOW() WHERE id=#{id}
     </update>
 
+    <insert id="insert" parameterType="ContentVo">
+        INSERT INTO content (id, type, title, body, mediaUrl, isPublished, createdAt)
+        VALUES (#{id}, #{type}, #{title}, #{body}, #{mediaUrl}, #{isPublished}, NOW())
+    </insert>
+
     <delete id="delete" parameterType="String">
         DELETE FROM content WHERE id=#{id}
     </delete>

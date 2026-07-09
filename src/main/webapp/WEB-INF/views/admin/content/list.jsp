@@ -5,12 +5,15 @@
 <html lang="ko">
 <head><meta charset="UTF-8"><title>콘텐츠 관리 - 어드민</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/resources/css/style.css?v=5"></head>
+<link rel="stylesheet" href="/resources/css/style.css?v=6"></head>
 <body class="admin-body">
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">
 <div class="portal-content">
-    <h2 class="page-title">콘텐츠 관리</h2>
+    <div class="page-header">
+        <h2 class="page-title">콘텐츠 관리</h2>
+        <a href="/admin/content/new" class="btn-primary">+ 새 콘텐츠 등록</a>
+    </div>
 
     <c:forEach var="group" items="${groupedContent}">
         <h3 class="content-group-title">

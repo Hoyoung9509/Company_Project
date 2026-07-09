@@ -10,10 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class PublicController {
+
+    private static final int WORKS_PAGE_SIZE = 9;
 
     private final ContentService contentService;
     private final ContactService contactService;
@@ -37,8 +43,17 @@ public class PublicController {
     }
 
     @GetMapping("/works")
-    public String works(Model model) {
-        model.addAttribute("contentList", contentService.getContentsByType("WORK"));
+    public String works(@RequestParam(defaultValue = "1") int page, Model model) {
+        List<com.company.homepage.vo.ContentVo> all = contentService.getContentsByType("WORK");
+        int totalPages = Math.max(1, (int) Math.ceil(all.size() / (double) WORKS_PAGE_SIZE));
+        int currentPage = Math.min(Math.max(page, 1), totalPages);
+        int fromIndex = (currentPage - 1) * WORKS_PAGE_SIZE;
+        int toIndex = Math.min(fromIndex + WORKS_PAGE_SIZE, all.size());
+        List<com.company.homepage.vo.ContentVo> pageItems =
+                fromIndex < all.size() ? all.subList(fromIndex, toIndex) : Collections.emptyList();
+        model.addAttribute("contentList", pageItems);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
         return "public/works";
     }
 

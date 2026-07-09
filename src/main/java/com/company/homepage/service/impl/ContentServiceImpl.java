@@ -55,6 +55,15 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
+    public void create(ContentVo content) {
+        content.setId(java.util.UUID.randomUUID().toString());
+        contentRepository.insert(content);
+        if (content.getIsPublished() == 1) {
+            esSyncService.indexContent(content);
+        }
+    }
+
+    @Override
     public void delete(String id) {
         contentRepository.delete(id);
         esSyncService.deleteContent(id);

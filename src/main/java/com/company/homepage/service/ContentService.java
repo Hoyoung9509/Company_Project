@@ -10,5 +10,6 @@ public interface ContentService {
     ContentVo getById(String id);
     void setPublished(String id, boolean published);
     void update(ContentVo content);
+    void create(ContentVo content);
     void delete(String id);
 }
