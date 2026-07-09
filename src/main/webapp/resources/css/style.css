@@ -68,6 +68,8 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
              color: #FF7A59; font-size: 22px; padding-left: 4px; }
 .work-info { padding: 20px; }
 .work-info h3 { font-size: 1.05rem; margin-bottom: 8px; font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; color: #3D2645; }
+.work-title-link { color: inherit; text-decoration: none; }
+.work-title-link:hover { text-decoration: underline; }
 .work-info p  { color: #666; font-size: 13px; line-height: 1.7; }
 
 /* ── Pagination ── */
@@ -122,6 +124,9 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .public-detail-meta { color: #999; font-size: 13px; margin-bottom: 20px; }
 .public-detail-box hr { border: none; border-top: 1px solid #eee; margin-bottom: 28px; }
 .public-detail-body { line-height: 1.9; color: #444; font-size: 15px; white-space: pre-wrap; }
+.public-detail-box-wide { max-width: 900px; }
+.work-detail-video { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; margin-bottom: 24px; background: #000; }
+.work-detail-video iframe { width: 100%; height: 100%; border: 0; }
 .btn-apply { display: inline-block; margin-top: 36px; padding: 12px 28px; background: #FF7A59;
              color: #fff; border-radius: 6px; text-decoration: none; font-size: 14px; }
 .btn-apply:hover { background: #E8602F; }

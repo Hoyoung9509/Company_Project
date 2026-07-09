@@ -57,6 +57,12 @@ public class PublicController {
         return "public/works";
     }
 
+    @GetMapping("/works/{id}")
+    public String worksDetail(@PathVariable String id, Model model) {
+        model.addAttribute("content", contentService.getById(id));
+        return "public/works-detail";
+    }
+
     @GetMapping("/careers")
     public String careers(Model model) {
         model.addAttribute("contentList", contentService.getContentsByType("CAREER"));

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업물 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=7">
+    <link rel="stylesheet" href="/resources/css/style.css?v=8">
 </head>
 <body>
 
@@ -44,7 +44,7 @@
                             </c:otherwise>
                         </c:choose>
                         <div class="work-info">
-                            <h3>${item.title}</h3>
+                            <h3><a href="/works/${item.id}" class="work-title-link">${item.title}</a></h3>
                             <p>${item.body}</p>
                         </div>
                     </div>
