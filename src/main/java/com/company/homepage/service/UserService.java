@@ -11,4 +11,5 @@ public interface UserService {
     void updateRole(String id, String role);
     void setActive(String id, boolean active);
     void createUser(UserVo user);
+    void adminUpdate(UserVo user);
 }

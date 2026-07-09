@@ -20,4 +20,5 @@ public class UserServiceImpl implements UserService {
     @Override public void updateRole(String id, String role)    { userRepository.updateRole(id, role); }
     @Override public void setActive(String id, boolean active)  { userRepository.updateActive(id, active ? 1 : 0); }
     @Override public void createUser(UserVo user)       { userRepository.insert(user); }
+    @Override public void adminUpdate(UserVo user)      { userRepository.adminUpdate(user); }
 }

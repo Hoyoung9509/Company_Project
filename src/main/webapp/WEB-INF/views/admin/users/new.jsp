@@ -2,7 +2,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head><meta charset="UTF-8"><title>계정 생성 - 어드민</title>
-<link rel="stylesheet" href="/resources/css/style.css"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/resources/css/style.css?v=4"></head>
 <body class="admin-body">
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">

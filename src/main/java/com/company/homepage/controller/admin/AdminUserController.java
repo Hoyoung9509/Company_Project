@@ -62,4 +62,21 @@ public class AdminUserController {
         auditLogService.log(adminId, "ACTIVATE", "USER", id, "inactive", "active");
         return "redirect:/admin/users";
     }
+
+    @GetMapping("/admin/users/{id}/edit")
+    public String editForm(@PathVariable String id, HttpSession session, Model model) {
+        model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
+        model.addAttribute("target", userService.getUserById(id));
+        return "admin/users/edit";
+    }
+
+    @PostMapping("/admin/users/{id}/edit")
+    public String edit(@PathVariable String id, @ModelAttribute UserVo form, HttpSession session) {
+        String adminId = SessionUtil.getLoginUser(session).getId();
+        UserVo before = userService.getUserById(id);
+        form.setId(id);
+        userService.adminUpdate(form);
+        auditLogService.log(adminId, "USER_UPDATE", "USER", id, before.getPosition(), form.getPosition());
+        return "redirect:/admin/users";
+    }
 }

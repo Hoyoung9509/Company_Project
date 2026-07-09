@@ -14,4 +14,5 @@ public interface UserRepository {
     void updateRole(@Param("id") String id, @Param("role") String role);
     void updateActive(@Param("id") String id, @Param("isActive") int isActive);
     void insert(UserVo user);
+    void adminUpdate(UserVo user);
 }
