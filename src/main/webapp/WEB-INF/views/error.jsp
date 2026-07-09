@@ -10,6 +10,6 @@
 <body style="display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px;">
     <h1 style="color:#3D2645;">문제가 발생했습니다</h1>
     <p style="color:#666;">요청을 처리하는 중 오류가 발생했습니다.</p>
-    <a href="/" class="btn-primary">홈으로 가기</a>
+    <a href="/" class="btn-portal">홈으로 가기</a>
 </body>
 </html>

@@ -248,10 +248,12 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .btn-primary   { padding: 10px 20px; background: #FF7A59; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
 .btn-secondary { padding: 10px 20px; background: #fff; color: #3D2645; border: 1px solid #3D2645; border-radius: 6px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
 .btn-danger    { padding: 10px 20px; background: #e53e3e; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+.btn-portal    { padding: 10px 20px; background: #3D2645; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
 .btn-sm { padding: 5px 12px; font-size: 12px; border-radius: 4px; }
 .btn-primary:hover   { background: #E8602F; }
 .btn-secondary:hover { background: #f5f5f5; }
 .btn-danger:hover    { background: #c53030; }
+.btn-portal:hover    { background: #2A1B30; }
 
 /* ── Header Search ── */
 .header-search { display: flex; align-items: center; gap: 4px; margin-left: 8px; }

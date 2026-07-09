@@ -30,9 +30,9 @@
                 <th>제목</th>
                 <th>공개</th>
                 <th>등록일</th>
-                <th>
-                    <div>관리</div>
-                    <button type="submit" form="bulkDeleteForm_${group.key}" class="btn-sm btn-danger" style="margin-top:6px;">선택삭제</button>
+                <th style="display:flex;justify-content:space-between;align-items:center;">
+                    <span>관리</span>
+                    <button type="submit" form="bulkDeleteForm_${group.key}" class="btn-sm btn-danger">선택삭제</button>
                 </th>
             </tr>
             </thead>
@@ -43,7 +43,7 @@
                     <td>${c.title}</td>
                     <td><span class="badge ${c.isPublished==1?'badge-APPROVED':'badge-REJECTED'}">${c.isPublished==1?'공개':'비공개'}</span></td>
                     <td>${c.createdAt}</td>
-                    <td style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <td style="display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;">
                         <c:choose>
                             <c:when test="${c.isPublished == 1}">
                                 <form method="post" action="/admin/content/${c.id}/unpublish" style="display:inline">
