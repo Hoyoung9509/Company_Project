@@ -3,7 +3,8 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head><meta charset="UTF-8"><title>조직도 - 포털</title>
-<link rel="stylesheet" href="/resources/css/style.css"></head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/resources/css/style.css?v=4"></head>
 <body class="portal-body">
 <%@ include file="/WEB-INF/views/common/portal-nav.jsp" %>
 <main class="portal-main">
