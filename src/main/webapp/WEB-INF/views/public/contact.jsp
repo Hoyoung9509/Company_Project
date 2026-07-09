@@ -3,8 +3,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>문의 - Company</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문의 - JuniMusic</title>
+    <link rel="stylesheet" href="/resources/css/style.css?v=4">
 </head>
 <body>
 
@@ -33,12 +34,16 @@
                 </div>
                 <div class="form-group">
                     <label>이메일 <span class="required">*</span></label>
-                    <input type="email" name="email" placeholder="example@company.com" required>
+                    <input type="email" name="email" placeholder="example@junimusic.shop" required>
                 </div>
             </div>
             <div class="form-group">
                 <label>연락처</label>
                 <input type="tel" name="phone" placeholder="010-0000-0000">
+            </div>
+            <div class="form-group">
+                <label>제목 <span class="required">*</span></label>
+                <input type="text" name="title" placeholder="문의 제목을 입력해주세요" required>
             </div>
             <div class="form-group">
                 <label>문의 내용 <span class="required">*</span></label>

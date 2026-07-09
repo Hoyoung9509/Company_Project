@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 프로젝트 개요
 
-**회사 홈페이지** — 외부 공개 영역, 내부 직원 포털, 어드민 패널을 하나의 Spring Boot 앱으로 제공한다.
+**JuniMusic 홈페이지** — 동요 제작 회사 JuniMusic의 외부 공개 영역, 내부 직원 포털, 어드민 패널을 하나의 Spring Boot 앱으로 제공한다. (자바 패키지명 `com.company.homepage`, DB명 `company_homepage`는 아직 리브랜딩 전 이름 그대로 유지 중 — 화면에 노출되는 텍스트/디자인부터 우선 반영했다.)
 
 | 사용자 유형 | 접근 경로 | 설명 |
 |---|---|---|
@@ -73,6 +73,10 @@ scripts/stop.bat           # 서버 종료 (포트 8080 kill)
 **완료 선언 전:**
 - `빌드 통과 ≠ 완료` — `claude/5-defensive-coding.md` 체크리스트를 충족해야 완료.
 - 기능 추가·변경·삭제 시 QC 체크리스트를 같은 세션에 동기화.
+
+## 코드/문서 작성 규칙
+
+- **이모지 사용 금지.** 소스 코드, 커밋 메시지, 주석, Notion 문서 등 어디에도 이모지를 쓰지 않는다.
 
 ## 공개 콘텐츠 작성 원칙
 

@@ -4,8 +4,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>서비스 - Company</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서비스 - JuniMusic</title>
+    <link rel="stylesheet" href="/resources/css/style.css?v=4">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <section class="page-banner">
     <h1>서비스</h1>
-    <p>최고의 가치를 제공하는 서비스를 만나보세요</p>
+    <p>아이들을 위한 다양한 동요 콘텐츠를 만나보세요</p>
 </section>
 
 <div class="section">

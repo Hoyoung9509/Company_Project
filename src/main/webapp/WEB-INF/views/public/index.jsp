@@ -4,8 +4,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${companyName}</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <link rel="stylesheet" href="/resources/css/style.css?v=4">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <section class="hero">
     <h1>${companyName}</h1>
-    <p>신뢰와 혁신으로 함께 성장합니다</p>
+    <p>아이들의 마음에 노래를 선물합니다</p>
 </section>
 
 <div class="section">

@@ -3,14 +3,20 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Noto Sans KR', sans-serif; background: #f0f2f5;
-               display: flex; justify-content: center; align-items: center; height: 100vh; }
+               display: flex; justify-content: center; align-items: center; min-height: 100vh;
+               padding: 20px; }
 
         .login-box { background: #fff; border-radius: 10px; padding: 48px 40px;
-                     width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+                     width: 100%; max-width: 380px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+
+        @media (max-width: 480px) {
+            .login-box { padding: 32px 24px; }
+        }
 
         .login-box h1 { font-size: 1.5rem; color: #1a1a2e; margin-bottom: 8px; text-align: center; }
         .login-box p  { font-size: 13px; color: #999; text-align: center; margin-bottom: 32px; }
@@ -36,7 +42,7 @@
 <body>
 
 <div class="login-box">
-    <h1>Company</h1>
+    <h1>JuniMusic</h1>
     <p>사원번호와 비밀번호를 입력하세요</p>
 
     <% if (request.getAttribute("error") != null) { %>

@@ -4,8 +4,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>뉴스 - Company</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뉴스 - JuniMusic</title>
+    <link rel="stylesheet" href="/resources/css/style.css?v=4">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <section class="page-banner">
     <h1>뉴스</h1>
-    <p>Company의 최신 소식을 전합니다</p>
+    <p>JuniMusic의 최신 소식을 전합니다</p>
 </section>
 
 <div class="section">

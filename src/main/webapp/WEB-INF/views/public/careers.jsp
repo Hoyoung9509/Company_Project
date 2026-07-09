@@ -4,8 +4,9 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>채용 - Company</title>
-    <link rel="stylesheet" href="/resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채용 - JuniMusic</title>
+    <link rel="stylesheet" href="/resources/css/style.css?v=4">
 </head>
 <body>
 
@@ -13,7 +14,7 @@
 
 <section class="page-banner">
     <h1>채용</h1>
-    <p>함께 성장할 인재를 기다립니다</p>
+    <p>아이들을 위한 노래를 함께 만들 동료를 기다립니다</p>
 </section>
 
 <div class="section">
