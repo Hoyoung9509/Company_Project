@@ -12,6 +12,10 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<% if (_loginUser != null && "ADMIN".equals(_loginUser.getRole())) { %>
+<a href="/admin/content/new?type=SERVICE&redirectTo=/services" class="fab-add" title="서비스 등록">+</a>
+<% } %>
+
 <section class="page-banner">
     <h1>서비스</h1>
     <p>아이들을 위한 다양한 동요 콘텐츠를 만나보세요</p>

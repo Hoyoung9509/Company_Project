@@ -12,6 +12,10 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<% if (_loginUser != null && "ADMIN".equals(_loginUser.getRole())) { %>
+<a href="/admin/content/new?type=SERVICE&redirectTo=/" class="fab-add" title="서비스 등록">+</a>
+<% } %>
+
 <section class="hero">
     <h1>${companyName}</h1>
     <p>아이들의 마음에 노래를 선물합니다</p>

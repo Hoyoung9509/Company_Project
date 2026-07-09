@@ -12,6 +12,10 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<% if (_loginUser != null && "ADMIN".equals(_loginUser.getRole())) { %>
+<a href="/admin/content/new?type=CAREER&redirectTo=/careers" class="fab-add" title="채용 공고 등록">+</a>
+<% } %>
+
 <section class="page-banner">
     <h1>채용</h1>
     <p>아이들을 위한 노래를 함께 만들 동료를 기다립니다</p>

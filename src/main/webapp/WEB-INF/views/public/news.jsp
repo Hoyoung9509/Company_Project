@@ -12,6 +12,10 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
+<% if (_loginUser != null && "ADMIN".equals(_loginUser.getRole())) { %>
+<a href="/admin/content/new?type=NOTICE_PUBLIC&redirectTo=/news" class="fab-add" title="뉴스 등록">+</a>
+<% } %>
+
 <section class="page-banner">
     <h1>뉴스</h1>
     <p>JuniMusic의 최신 소식을 전합니다</p>
