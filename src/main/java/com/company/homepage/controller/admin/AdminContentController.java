@@ -94,4 +94,19 @@ public class AdminContentController {
         auditLogService.log(adminId, "CONTENT_DELETE", "CONTENT", id, target.getTitle(), null);
         return "redirect:/admin/content";
     }
+
+    @PostMapping("/admin/content/bulk-delete")
+    public String bulkDelete(@RequestParam(name = "ids", required = false) List<String> ids, HttpSession session) {
+        if (ids == null || ids.isEmpty()) {
+            return "redirect:/admin/content";
+        }
+        String adminId = SessionUtil.getLoginUser(session).getId();
+        for (String id : ids) {
+            ContentVo target = contentService.getById(id);
+            if (target == null) continue;
+            contentService.delete(id);
+            auditLogService.log(adminId, "CONTENT_DELETE", "CONTENT", id, target.getTitle(), null);
+        }
+        return "redirect:/admin/content";
+    }
 }

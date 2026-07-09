@@ -10,9 +10,19 @@
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">
 <div class="portal-content">
+    <form id="bulkDeleteForm" method="post" action="/admin/content/bulk-delete"
+          onsubmit="return confirm('선택한 게시물을 삭제하면 복구할 수 없습니다. 계속하시겠습니까?')"></form>
+
     <div class="page-header">
         <h2 class="page-title">콘텐츠 관리</h2>
-        <a href="/admin/content/new" class="btn-primary">+ 새 콘텐츠 등록</a>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <label style="display:flex;align-items:center;gap:4px;font-weight:normal;">
+                <input type="checkbox" id="selectAllCheckbox" onclick="toggleAllContentCheckboxes(this)" style="width:auto;">
+                전체선택
+            </label>
+            <button type="submit" form="bulkDeleteForm" class="btn-danger">선택 삭제</button>
+            <a href="/admin/content/new" class="btn-primary">+ 새 콘텐츠 등록</a>
+        </div>
     </div>
 
     <c:forEach var="group" items="${groupedContent}">
@@ -21,10 +31,11 @@
             <span class="content-group-count">${fn:length(group.value)}건</span>
         </h3>
         <table class="data-table">
-            <thead><tr><th>제목</th><th>공개</th><th>등록일</th><th>관리</th></tr></thead>
+            <thead><tr><th></th><th>제목</th><th>공개</th><th>등록일</th><th>관리</th></tr></thead>
             <tbody>
             <c:forEach var="c" items="${group.value}">
                 <tr>
+                    <td><input type="checkbox" name="ids" value="${c.id}" form="bulkDeleteForm" class="content-checkbox" style="width:auto;"></td>
                     <td>${c.title}</td>
                     <td><span class="badge ${c.isPublished==1?'badge-APPROVED':'badge-REJECTED'}">${c.isPublished==1?'공개':'비공개'}</span></td>
                     <td>${c.createdAt}</td>
@@ -53,6 +64,14 @@
         </table>
     </c:forEach>
 </div>
+
+<script>
+function toggleAllContentCheckboxes(master) {
+    document.querySelectorAll('.content-checkbox').forEach(function (cb) {
+        cb.checked = master.checked;
+    });
+}
+</script>
 </main>
 </body>
 </html>
