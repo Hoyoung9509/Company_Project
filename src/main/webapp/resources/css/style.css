@@ -192,13 +192,13 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 .content-group-count { font-size: 12px; font-weight: 400; color: #999; }
 
 /* ── Data Table ── */
-.data-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 8px; }
+.data-table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 8px; }
 .data-table th { background: #f8f8f8; padding: 12px 16px; text-align: left; font-size: 13px; color: #555; border-bottom: 1px solid #eee; }
 .data-table td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid #f5f5f5; }
 .data-table tr:last-child td { border-bottom: none; }
 .data-table td a { color: #3D2645; text-decoration: none; }
 .data-table td a:hover { text-decoration: underline; }
-.data-table .title-cell { max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.data-table .title-cell { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ── Badges ── */
 .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }

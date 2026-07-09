@@ -26,6 +26,13 @@
                     class="btn-sm btn-danger" style="display:none;">선택삭제</button>
         </h3>
         <table class="data-table">
+            <colgroup>
+                <col style="width:4%;">
+                <col style="width:38%;">
+                <col style="width:10%;">
+                <col style="width:18%;">
+                <col style="width:30%;">
+            </colgroup>
             <thead>
             <tr>
                 <th><input type="checkbox" onclick="toggleGroupCheckboxes(this, '${group.key}')" style="width:auto;"></th>
