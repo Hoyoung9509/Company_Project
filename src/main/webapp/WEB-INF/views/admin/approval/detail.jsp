@@ -4,7 +4,7 @@
 <html lang="ko">
 <head><meta charset="UTF-8"><title>${approval.title} - 결재 관리</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/resources/css/style.css?v=8"></head>
+<link rel="stylesheet" href="/resources/css/style.css?v=9"></head>
 <body class="admin-body">
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">
