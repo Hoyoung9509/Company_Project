@@ -1,12 +1,13 @@
 ﻿server:
   port: 8080
+  forward-headers-strategy: native
   tomcat:
     accesslog:
       enabled: true
       directory: C:/Users/wjdgh/IdeaProjects/Company_Project/logs
       prefix: access_log
       suffix: .log
-      pattern: "%h %l %u %t \"%r\" %s %b %D"
+      pattern: "%{CF-Connecting-IP}i %l %u %t \"%r\" %s %b %D"
 
 logging:
   file:
