@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.ProcessStepRepository">
+
+    <select id="findAll" resultType="ProcessStepVo">
+        SELECT id, title, description, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM processstep
+        ORDER BY sortOrder ASC, createdAt ASC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="ProcessStepVo">
+        SELECT id, title, description, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM processstep WHERE id = #{id}
+    </select>
+
+    <select id="findMaxSortOrder" resultType="Integer">
+        SELECT MAX(sortOrder) FROM processstep
+    </select>
+
+    <insert id="insert" parameterType="ProcessStepVo">
+        INSERT INTO processstep (id, title, description, sortOrder, createdAt, updatedAt)
+        VALUES (#{id}, #{title}, #{description}, #{sortOrder}, NOW(), NOW())
+    </insert>
+
+    <update id="update" parameterType="ProcessStepVo">
+        UPDATE processstep SET title=#{title}, description=#{description}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <update id="updateSortOrder">
+        UPDATE processstep SET sortOrder=#{sortOrder}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM processstep WHERE id=#{id}
+    </delete>
+
+</mapper>

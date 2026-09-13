@@ -9,7 +9,8 @@ h1, h2, .hero h1, .page-banner h1, .sidebar-logo a, header nav a strong {
 }
 
 /* ── Header ── */
-header { background: #fff; border-bottom: 1px solid #eee; padding: 0 40px; }
+header { background: #fff; border-bottom: 1px solid #eee; padding: 0 40px;
+         position: sticky; top: 0; z-index: 1000; }
 header nav { display: flex; align-items: center; height: 60px; gap: 24px; }
 header nav a { text-decoration: none; color: #555; font-size: 14px; }
 header nav a:hover { color: #000; }
@@ -54,7 +55,32 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
                border-bottom: 1px solid #e0e0e0; font-size: 15px; color: #444; }
 .timeline .year { font-weight: 700; color: #3D2645; min-width: 48px; }
 
+/* ── Team (staff profiles) ── */
+.staff-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.staff-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
+.staff-photo-link { display: block; }
+.staff-photo { aspect-ratio: 1 / 1; background: linear-gradient(135deg, #FF7A59, #FFC93C);
+               background-size: cover; background-position: center; }
+.staff-info { padding: 20px; }
+.staff-info h3 { font-size: 1.1rem; margin-bottom: 4px; font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; color: #3D2645; }
+.staff-name-link { color: inherit; text-decoration: none; }
+.staff-name-link:hover { text-decoration: underline; }
+.staff-position { color: #FF7A59; font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+.staff-bio { color: #444; font-size: 14px; line-height: 1.6; margin-bottom: 12px; }
+.staff-detail { margin-top: 12px; }
+.staff-detail strong { display: block; font-size: 12px; color: #999; margin-bottom: 4px; }
+.staff-multiline { color: #666; font-size: 13px; line-height: 1.7; white-space: pre-line; }
+.staff-detail-photo { width: 180px; aspect-ratio: 1 / 1; border-radius: 16px; margin: 0 auto 20px;
+                       background: linear-gradient(135deg, #FF7A59, #FFC93C);
+                       background-size: cover; background-position: center; }
+
 /* ── Works (video promo gallery) ── */
+.work-category-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.category-tab { display: inline-flex; align-items: center; padding: 8px 18px; border-radius: 20px;
+                background: #fff; border: 1px solid #eee; color: #3D2645; text-decoration: none; font-size: 14px; }
+.category-tab:hover { background: #FFF3E6; }
+.category-tab.active { background: #FF7A59; border-color: #FF7A59; color: #fff; }
+.work-info .badge { background: #FFF3E6; color: #FF7A59; margin-bottom: 8px; }
 .work-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; }
 .work-card { background: #fff; border-radius: 16px; overflow: hidden; border: 1px solid #eee; }
 .work-thumb { aspect-ratio: 16 / 9; background: linear-gradient(135deg, #FF7A59, #FFC93C);
@@ -271,30 +297,195 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
 }
 .fab-add:hover { background: #E8602F; }
 
-/* ── Header Search ── */
-.header-search { display: flex; align-items: center; gap: 4px; margin-left: 8px; }
-.header-search input { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; font-size: 13px; width: 140px; outline: none; }
-.header-search input:focus { border-color: #FF7A59; }
-.header-search button { padding: 5px 12px; background: #3D2645; color: #fff; border: none; border-radius: 0 4px 4px 0; font-size: 13px; cursor: pointer; white-space: nowrap; }
-.header-search button:hover { background: #2A1B30; }
+.fab-contact {
+    position: fixed; right: 32px; bottom: 32px; z-index: 999;
+    padding: 14px 24px; border-radius: 30px; background: #FF7A59; color: #fff;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,.25);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.fab-contact:hover { background: #E8602F; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.3); }
 
-/* ── Search Page ── */
-.search-form, .portal-search-form { margin-bottom: 28px; }
-.search-input-wrap { display: flex; gap: 8px; max-width: 600px; }
-.search-input-wrap input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; outline: none; }
-.search-input-wrap input:focus { border-color: #FF7A59; }
-.search-input-wrap button { padding: 12px 24px; background: #FF7A59; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; }
-.search-input-wrap button:hover { background: #E8602F; }
-.search-meta { color: #666; font-size: 14px; margin-bottom: 20px; }
-.search-results { display: flex; flex-direction: column; gap: 0; }
-.search-item { padding: 20px 0; border-bottom: 1px solid #eee; }
-.search-item-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.search-title { font-size: 1rem; margin-bottom: 6px; }
-.search-title a { color: #3D2645; text-decoration: none; }
-.search-title a:hover { text-decoration: underline; }
-.search-excerpt { color: #666; font-size: 13px; line-height: 1.6; white-space: pre-wrap;
-                  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.search-date { color: #999; font-size: 12px; margin-left: auto; }
+/* ── Home hero (animated) ── */
+.home-hero {
+    text-align: center; padding: 72px 40px 32px;
+}
+.home-hero-text { text-align: center; position: relative; }
+
+/* signature mascot: wrapper floats continuously; the img itself wiggles on hover.
+   Two separate elements so the two transforms compose instead of one overriding the other.
+   Nested inside .home-hero-text (not a sibling) so the desktop absolute positioning below
+   anchors to the text block's own right edge instead of the whole hero band. */
+.home-hero-mascot-wrap { display: inline-block; margin-top: 10px; animation: mascotFloat 3s ease-in-out infinite; }
+.home-hero-mascot {
+    display: block; width: 68px; height: auto;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,.35));
+    transition: transform .2s ease;
+}
+.home-hero-mascot-wrap:hover .home-hero-mascot { animation: mascotWiggle .5s ease; }
+
+@media (min-width: 769px) {
+    /* text stays dead-center on its own; the mascot is pinned to its right edge via
+       absolute positioning so it doesn't pull the text off-center. */
+    .home-hero-text { display: inline-block; }
+    .home-hero-mascot-wrap { position: absolute; left: 100%; top: 50%; margin-left: 20px; margin-top: -45px; }
+    .home-hero-mascot { width: 100px; }
+}
+
+@keyframes mascotFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+}
+@keyframes mascotWiggle {
+    0%   { transform: scale(1) rotate(0deg); }
+    30%  { transform: scale(1.12) rotate(-8deg); }
+    60%  { transform: scale(1.05) rotate(6deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+@keyframes heroGradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ── Home: one continuous animated gradient band spanning hero through the CTA ── */
+.home-gradient-band {
+    position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #3D2645, #6b3f7a, #FF7A59, #3D2645);
+    background-size: 300% 300%;
+    animation: heroGradient 14s ease infinite;
+    color: #fff;
+}
+/* every direct section floats above the note canvas */
+.home-gradient-band > *:not(.home-hero-canvas) { position: relative; z-index: 1; }
+.home-gradient-band h2 { color: #fff; }
+.home-gradient-band .home-cta-band h2 { color: #fff; }
+.home-gradient-band .home-services-head p,
+.home-gradient-band .home-team-position,
+.home-gradient-band .home-cta-band p { color: #cbb8d6; }
+.home-gradient-band .home-team-name { color: #fff; }
+.home-gradient-band .empty-msg { color: #f0e6f5; }
+/* these sections keep their own layout/padding but let the shared gradient show through */
+.home-gradient-band .process-band,
+.home-gradient-band .home-cta-band { background: transparent; }
+.home-hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.home-hero-inner h1 { font-size: 3rem; margin-bottom: 16px; }
+.home-hero-inner p { font-size: 1.15rem; color: #f0e6f5; margin-bottom: 32px; }
+.btn-hero-primary, .btn-hero-secondary {
+    padding: 14px 32px; border-radius: 30px; font-size: 15px; font-weight: 700;
+    text-decoration: none; display: inline-block; transition: transform .2s ease, box-shadow .2s ease;
+}
+.btn-hero-primary { background: #FF7A59; color: #fff; box-shadow: 0 6px 18px rgba(255,122,89,.4); }
+.btn-hero-secondary { background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.6); backdrop-filter: blur(2px); }
+.btn-hero-primary:hover, .btn-hero-secondary:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(0,0,0,.25); }
+
+/* ── Home: hover-lift cards ── */
+.card { transition: transform .25s ease, box-shadow .25s ease; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(61,38,69,.12); }
+
+/* ── Home: services (numbered cards) ── */
+.home-services-head { text-align: center; margin-bottom: 48px; }
+.home-services-head h2 { margin-bottom: 8px; }
+.home-services-head p { color: #888; font-size: 14px; }
+.home-service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                      gap: 28px; max-width: 1100px; margin: 0 auto; }
+.home-service-card { background: #fff; border-radius: 16px; padding: 40px 32px; text-align: center;
+                      transition: transform .25s ease, box-shadow .25s ease; }
+.home-service-card:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(61,38,69,.12); }
+.home-service-card h3 { font-size: 1.1rem; margin-bottom: 12px; color: #3D2645;
+                         font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; }
+.home-service-card p { color: #666; font-size: 14px; line-height: 1.7; }
+
+/* ── Process (제작과정) ── */
+.process-band { background: #3D2645; color: #fff; padding: 72px 40px; }
+.process-band-head { text-align: center; margin-bottom: 48px; }
+.process-band-head h2 { color: #fff; margin-bottom: 8px; }
+.process-band-head p { color: #cbb8d6; font-size: 14px; }
+.process-steps { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+                  gap: 20px 8px; max-width: 1100px; margin: 0 auto; }
+.process-step { text-align: center; width: 180px; }
+.process-step-index {
+    display: block; font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; line-height: 1;
+    background: linear-gradient(135deg, #FF7A59, #FFC93C);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.process-step h3 { font-size: 1.05rem; margin-bottom: 10px; color: #fff;
+                    font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; }
+.process-step p { color: #cbb8d6; font-size: 13px; line-height: 1.7; }
+.process-arrow { flex: 0 0 auto; color: rgba(255,255,255,.35); font-size: 1.6rem; align-self: center; margin-top: 32px; }
+
+/* ── Home: featured works showcase (slideshow) ── */
+.home-showcase { display: flex; }
+.home-showcase-panel {
+    width: 320px; flex-shrink: 0; background: #3D2645; color: #fff;
+    padding: 48px 36px; display: flex; flex-direction: column; justify-content: center;
+}
+.home-showcase-panel h2 { font-size: 1.5rem; line-height: 1.4; margin-bottom: 16px; }
+.home-showcase-panel p { color: #cbb8d6; font-size: 14px; line-height: 1.7; margin-bottom: 28px; }
+.home-showcase-link { align-self: flex-start; }
+.home-showcase-slider { flex: 1; min-width: 0; }
+.home-showcase-swiper { height: 420px; }
+.home-showcase-backdrop { display: none; }
+
+@media (min-width: 769px) {
+    /* YouTube mqdefault thumbnails are a fixed 320x180 (16:9, no letterboxing) image,
+       but this panel spans whatever width is left beside the 320px text panel.
+       Stretching the swiper to that full width and covering it crops the thumbnail.
+       Lock the swiper to the thumbnail's own ratio and center it instead, and fill
+       the leftover space with a blurred copy of the same thumbnail plus a gradient
+       that blends into the text panel's color, so the margin reads as a designed
+       backdrop rather than empty space. */
+    .home-showcase-slider { display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .home-showcase-backdrop {
+        display: block; position: absolute; inset: -20px;
+        background-size: cover; background-position: center;
+        filter: blur(18px) brightness(.65) saturate(1.1);
+        transition: background-image .5s ease;
+    }
+    .home-showcase-slider::before {
+        content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background: linear-gradient(90deg, #3D2645 0%, rgba(61,38,69,.4) 20%, rgba(61,38,69,0) 50%);
+    }
+    .home-showcase-swiper {
+        position: relative; z-index: 2; width: min(640px, 100%); height: auto; aspect-ratio: 16 / 9;
+        border-radius: 16px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    }
+}
+.home-showcase-swiper .swiper-slide { height: 100%; }
+.home-showcase-slide {
+    display: block; width: 100%; height: 100%; background-size: cover; background-position: center;
+    background-color: #2a2a2a; position: relative;
+}
+.home-showcase-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 40px; background: linear-gradient(0deg, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 55%);
+}
+.home-showcase-overlay .badge { background: rgba(255,255,255,.2); color: #fff; align-self: flex-start; margin-bottom: 10px; }
+.home-showcase-overlay h3 { font-size: 1.5rem; font-family: 'Jua', 'Noto Sans KR', sans-serif; font-weight: 400; color: #fff; }
+.home-showcase-counter {
+    position: absolute; right: 28px; bottom: 24px; z-index: 2;
+    display: flex; align-items: center; gap: 10px; color: #fff; font-size: 13px; letter-spacing: .05em;
+}
+.home-showcase-counter .counter-line { width: 40px; height: 1px; background: rgba(255,255,255,.5); }
+
+/* ── Home: team strip ── */
+.home-team-strip { display: flex; gap: 28px; justify-content: center; flex-wrap: wrap; }
+.home-team-item { text-align: center; text-decoration: none; color: inherit; width: 140px; }
+.home-team-photo {
+    width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 12px;
+    background: linear-gradient(135deg, #FF7A59, #FFC93C);
+    background-size: cover; background-position: center;
+    transition: transform .25s ease, box-shadow .25s ease; border: 3px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,.08);
+}
+.home-team-item:hover .home-team-photo { transform: scale(1.08) rotate(-2deg); box-shadow: 0 10px 20px rgba(61,38,69,.2); }
+.home-team-name { font-weight: 700; color: #3D2645; font-size: 14px; margin-bottom: 2px; }
+.home-team-position { color: #999; font-size: 12px; }
+.home-team-more { text-align: center; margin-top: 32px; }
+
+/* ── Home: CTA band ── */
+.home-cta-band { background: #FFF3E6; text-align: center; padding: 72px 40px; }
+.home-cta-band h2 { font-size: 1.6rem; margin-bottom: 12px; color: #3D2645; }
+.home-cta-band p { color: #666; margin-bottom: 28px; }
 
 /* ══════════════════════════════════════════
    Mobile / Responsive
@@ -303,6 +494,18 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
     /* Header */
     header { padding: 0 16px; }
     header nav { flex-wrap: wrap; height: auto; padding: 10px 0; gap: 10px 16px; }
+
+    /* Process steps stack vertically with downward arrows */
+    .process-steps { flex-direction: column; align-items: center; }
+    .process-step { width: 100%; max-width: 280px; }
+    .process-arrow { margin-top: 0; transform: rotate(90deg); }
+
+    /* Home showcase slideshow */
+    .home-showcase { flex-direction: column; }
+    .home-showcase-panel { width: 100%; padding: 32px 24px; }
+    .home-showcase-swiper { height: 280px; }
+    .home-showcase-overlay { padding: 24px; }
+    .home-showcase-overlay h3 { font-size: 1.2rem; }
     header nav a { font-size: 13px; }
     .header-search { order: 3; width: 100%; margin-left: 0; }
     .header-search input { flex: 1; width: auto; }
@@ -349,9 +552,6 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
     /* Tables: horizontal scroll instead of squishing columns */
     .data-table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
 
-    .search-input-wrap { flex-direction: column; }
-    .search-input-wrap button { width: 100%; }
-
     .action-area { flex-direction: column; align-items: stretch; }
     .btn-group { flex-direction: column; }
     .btn-group .btn-primary, .btn-group .btn-secondary { text-align: center; }
@@ -361,5 +561,11 @@ footer { background: #3D2645; color: #aaa; text-align: center; padding: 32px; fo
     .hero h1 { font-size: 1.6rem; }
     .hero p, .page-banner p { font-size: 0.9rem; }
     .section { padding: 36px 16px; }
-    .card, .about-card, .job-item, .detail-box, .log-section { padding: 20px; }
+    .card, .about-card, .job-item, .detail-box, .log-section, .home-service-card { padding: 20px; }
+
+    .home-hero { padding: 90px 20px; }
+    .home-hero-inner h1 { font-size: 2rem; }
+    .home-hero-inner p { font-size: 1rem; }
+    .home-cta-band { padding: 48px 20px; }
+    .process-band { padding: 48px 20px; }
 }

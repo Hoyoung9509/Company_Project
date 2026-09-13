@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${content.title} - 채용</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=10">
+    <link rel="stylesheet" href="/resources/css/style.css?v=37">
 </head>
 <body>
 

@@ -11,6 +11,8 @@ public class ContentVo {
     private String mediaUrl;
     private int isPublished;
     private String createdAt;
+    private String workCategoryId;
+    private String workCategoryName;
 
     public String getTypeLabel() {
         if (type == null) return "";

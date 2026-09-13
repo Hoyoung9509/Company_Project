@@ -1,7 +1,11 @@
 package com.company.homepage.controller;
 
+import com.company.homepage.service.CompanyHistoryService;
 import com.company.homepage.service.ContactService;
 import com.company.homepage.service.ContentService;
+import com.company.homepage.service.ProcessStepService;
+import com.company.homepage.service.StaffProfileService;
+import com.company.homepage.service.WorkCategoryService;
 import com.company.homepage.vo.ContactVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -23,17 +27,44 @@ public class PublicController {
 
     private final ContentService contentService;
     private final ContactService contactService;
+    private final WorkCategoryService workCategoryService;
+    private final StaffProfileService staffProfileService;
+    private final ProcessStepService processStepService;
+    private final CompanyHistoryService companyHistoryService;
 
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("companyName", "JuniMusic");
         model.addAttribute("contentList", contentService.getContentsByType("SERVICE"));
+        model.addAttribute("workList", contentService.getContentsByType("WORK"));
+        model.addAttribute("staffList", staffProfileService.getAll());
+        model.addAttribute("processSteps", processStepService.getAll());
         return "public/index";
     }
 
     @GetMapping("/about")
-    public String about() {
+    public String about(Model model) {
+        model.addAttribute("contentList", contentService.getContentsByType("ABOUT"));
+        model.addAttribute("historyList", companyHistoryService.getAll());
         return "public/about";
+    }
+
+    @GetMapping("/process")
+    public String process(Model model) {
+        model.addAttribute("processSteps", processStepService.getAll());
+        return "public/process";
+    }
+
+    @GetMapping("/team")
+    public String team(Model model) {
+        model.addAttribute("profiles", staffProfileService.getAll());
+        return "public/team";
+    }
+
+    @GetMapping("/team/{id}")
+    public String teamDetail(@PathVariable String id, Model model) {
+        model.addAttribute("profile", staffProfileService.getById(id));
+        return "public/team-detail";
     }
 
     @GetMapping("/services")
@@ -43,8 +74,15 @@ public class PublicController {
     }
 
     @GetMapping("/works")
-    public String works(@RequestParam(defaultValue = "1") int page, Model model) {
+    public String works(@RequestParam(defaultValue = "1") int page,
+                         @RequestParam(required = false) String category,
+                         Model model) {
         List<com.company.homepage.vo.ContentVo> all = contentService.getContentsByType("WORK");
+        if (category != null && !category.isBlank()) {
+            all = all.stream()
+                    .filter(c -> category.equals(c.getWorkCategoryId()))
+                    .collect(java.util.stream.Collectors.toList());
+        }
         int totalPages = Math.max(1, (int) Math.ceil(all.size() / (double) WORKS_PAGE_SIZE));
         int currentPage = Math.min(Math.max(page, 1), totalPages);
         int fromIndex = (currentPage - 1) * WORKS_PAGE_SIZE;
@@ -54,6 +92,8 @@ public class PublicController {
         model.addAttribute("contentList", pageItems);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("categories", workCategoryService.getAll());
+        model.addAttribute("selectedCategory", category);
         return "public/works";
     }
 

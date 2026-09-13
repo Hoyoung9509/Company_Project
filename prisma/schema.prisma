@@ -118,17 +118,22 @@ enum ApprovalAction {
 // ──────────────────────────────────────────
 
 model Content {
-  id          String        @id @default(cuid())
-  type        ContentType
-  title       String
-  body        String        @db.LongText
-  mediaUrl    String?       // 유튜브 등 영상 링크 (WORK 타입에서 사용)
-  isPublished Boolean       @default(false)
-  publishedAt DateTime?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  id             String        @id @default(cuid())
+  type           ContentType
+  title          String
+  body           String        @db.LongText
+  mediaUrl       String?       // 유튜브 등 영상 링크 (WORK 타입에서 사용)
+  isPublished    Boolean       @default(false)
+  publishedAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  workCategoryId String?       // WORK 타입에서만 사용
+  workCategory   WorkCategory? @relation(fields: [workCategoryId], references: [id])
 
   attachments Attachment[]
+
+  @@index([workCategoryId])
 }
 
 enum ContentType {
@@ -138,6 +143,54 @@ enum ContentType {
   NOTICE_PUBLIC  // 공지 (외부)
   NOTICE_INTERNAL // 공지 (내부)
   WORK         // 작업물 (동요/영상 홍보)
+}
+
+// 작업물(WORK) 분류 — 어드민이 직접 추가/수정/삭제
+model WorkCategory {
+  id        String   @id @default(cuid())
+  name      String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contents Content[]
+}
+
+// 제작과정 — 홈페이지/제작과정 페이지에 노출되는 단계별 안내, 어드민이 관리
+model ProcessStep {
+  id          String   @id @default(cuid())
+  title       String
+  description String   @db.Text
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 회사 연혁 — 회사소개(/about) 페이지에 노출되는 타임라인, 어드민이 관리
+model CompanyHistory {
+  id          String   @id @default(cuid())
+  year        String
+  description String   @db.Text
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ──────────────────────────────────────────
+// 팀 소개 (직원 프로필) — 전체 공개, 어드민이 관리
+// ──────────────────────────────────────────
+
+model StaffProfile {
+  id        String   @id @default(cuid())
+  name      String
+  position  String        // 직급/역할
+  photoUrl  String?
+  bio       String?       // 한 줄 소개
+  career    String?  @db.Text  // 경력
+  portfolio String?  @db.Text  // 대표 작업물
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 // ──────────────────────────────────────────

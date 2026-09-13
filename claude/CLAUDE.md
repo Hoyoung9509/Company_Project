@@ -22,7 +22,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | 뷰 | JSP + tomcat-embed-jasper |
 | ORM | MyBatis 3.0.3 |
 | DB | MySQL 8.0 로컬 (root/root, DB: company_homepage) |
-| 검색 | Elasticsearch (도입 예정) |
 | 기타 | Lombok 1.18.32, JSTL 3.0.1 |
 | 베이스 패키지 | com.company.homepage |
 

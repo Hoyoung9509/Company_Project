@@ -3,6 +3,7 @@ package com.company.homepage.controller.admin;
 import com.company.homepage.common.util.SessionUtil;
 import com.company.homepage.service.AuditLogService;
 import com.company.homepage.service.ContentService;
+import com.company.homepage.service.WorkCategoryService;
 import com.company.homepage.vo.ContentVo;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class AdminContentController {
 
     private final ContentService contentService;
     private final AuditLogService auditLogService;
+    private final WorkCategoryService workCategoryService;
 
     @GetMapping("/admin/content")
     public String list(HttpSession session, Model model) {
@@ -46,17 +48,31 @@ public class AdminContentController {
         model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
         model.addAttribute("presetType", type);
         model.addAttribute("redirectTo", redirectTo);
+        model.addAttribute("categories", workCategoryService.getAll());
         return "admin/content/new";
     }
 
     @PostMapping("/admin/content/new")
     public String create(@ModelAttribute ContentVo content,
                           @RequestParam(required = false) String redirectTo,
-                          HttpSession session) {
+                          HttpSession session, Model model) {
+        if ("WORK".equals(content.getType()) && isBlank(content.getWorkCategoryId())) {
+            model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
+            model.addAttribute("presetType", content.getType());
+            model.addAttribute("redirectTo", redirectTo);
+            model.addAttribute("categories", workCategoryService.getAll());
+            model.addAttribute("content", content);
+            model.addAttribute("error", "작업물은 카테고리를 선택해야 합니다.");
+            return "admin/content/new";
+        }
         String adminId = SessionUtil.getLoginUser(session).getId();
         contentService.create(content);
         auditLogService.log(adminId, "CONTENT_CREATE", "CONTENT", content.getId(), null, content.getTitle());
         return "redirect:" + (isSafeRedirect(redirectTo) ? redirectTo : "/admin/content");
+    }
+
+    private boolean isBlank(String s) {
+        return s == null || s.isBlank();
     }
 
     private boolean isSafeRedirect(String redirectTo) {
@@ -83,13 +99,23 @@ public class AdminContentController {
     public String editForm(@PathVariable String id, HttpSession session, Model model) {
         model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
         model.addAttribute("content", contentService.getById(id));
+        model.addAttribute("categories", workCategoryService.getAll());
         return "admin/content/edit";
     }
 
     @PostMapping("/admin/content/{id}/edit")
-    public String edit(@PathVariable String id, @ModelAttribute ContentVo content, HttpSession session) {
-        String adminId = SessionUtil.getLoginUser(session).getId();
+    public String edit(@PathVariable String id, @ModelAttribute ContentVo content, HttpSession session, Model model) {
         ContentVo before = contentService.getById(id);
+        if ("WORK".equals(before.getType()) && isBlank(content.getWorkCategoryId())) {
+            content.setId(id);
+            content.setType(before.getType());
+            model.addAttribute("loginUser", SessionUtil.getLoginUser(session));
+            model.addAttribute("content", content);
+            model.addAttribute("categories", workCategoryService.getAll());
+            model.addAttribute("error", "작업물은 카테고리를 선택해야 합니다.");
+            return "admin/content/edit";
+        }
+        String adminId = SessionUtil.getLoginUser(session).getId();
         content.setId(id);
         contentService.update(content);
         auditLogService.log(adminId, "CONTENT_UPDATE", "CONTENT", id, before.getTitle(), content.getTitle());

@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회사소개 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=10">
+    <link rel="stylesheet" href="/resources/css/style.css?v=37">
 </head>
 <body>
 
@@ -17,29 +18,37 @@
 </section>
 
 <div class="section">
-    <h2>비전 &amp; 미션</h2>
-    <div class="about-grid">
-        <div class="about-card">
-            <h3>비전</h3>
-            <p>아이들의 세상에 가장 맑은 노래를 전하는 기업</p>
-        </div>
-        <div class="about-card">
-            <h3>미션</h3>
-            <p>아이와 부모 모두가 웃을 수 있는 동요를 만드는 파트너</p>
-        </div>
-        <div class="about-card">
-            <h3>핵심 가치</h3>
-            <p>순수 · 즐거움 · 창의 · 감동</p>
-        </div>
-    </div>
+    <c:choose>
+        <c:when test="${empty contentList}">
+            <p class="empty-msg">등록된 회사소개 콘텐츠가 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <div class="about-grid">
+                <c:forEach var="item" items="${contentList}">
+                    <div class="about-card">
+                        <h3>${item.title}</h3>
+                        <p>${item.body}</p>
+                    </div>
+                </c:forEach>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <div class="section section-gray">
     <h2>연혁</h2>
-    <ul class="timeline">
-        <li><span class="year">2024</span> JuniMusic 설립</li>
-        <li><span class="year">2024</span> 첫 동요 앨범 발매</li>
-    </ul>
+    <c:choose>
+        <c:when test="${empty historyList}">
+            <p class="empty-msg">등록된 연혁이 없습니다.</p>
+        </c:when>
+        <c:otherwise>
+            <ul class="timeline">
+                <c:forEach var="h" items="${historyList}">
+                    <li><span class="year">${h.year}</span> ${h.description}</li>
+                </c:forEach>
+            </ul>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <%@ include file="/WEB-INF/views/common/footer.jsp" %>

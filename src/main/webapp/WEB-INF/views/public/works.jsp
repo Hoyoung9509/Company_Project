@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>작업물 - JuniMusic</title>
-    <link rel="stylesheet" href="/resources/css/style.css?v=10">
+    <link rel="stylesheet" href="/resources/css/style.css?v=37">
 </head>
 <body>
 
@@ -22,6 +22,14 @@
 </section>
 
 <div class="section">
+    <c:if test="${not empty categories}">
+        <div class="work-category-tabs">
+            <a href="/works" class="category-tab${empty selectedCategory ? ' active' : ''}">전체</a>
+            <c:forEach var="cat" items="${categories}">
+                <a href="/works?category=${cat.id}" class="category-tab${cat.id == selectedCategory ? ' active' : ''}">${cat.name}</a>
+            </c:forEach>
+        </div>
+    </c:if>
     <c:choose>
         <c:when test="${empty contentList}">
             <p class="empty-msg">등록된 작업물이 없습니다.</p>
@@ -44,6 +52,9 @@
                             </c:otherwise>
                         </c:choose>
                         <div class="work-info">
+                            <c:if test="${not empty item.workCategoryName}">
+                                <span class="badge">${item.workCategoryName}</span>
+                            </c:if>
                             <h3><a href="/works/${item.id}" class="work-title-link">${item.title}</a></h3>
                             <p>${item.body}</p>
                         </div>
@@ -56,7 +67,7 @@
     <c:if test="${totalPages > 1}">
         <div class="pagination">
             <c:forEach begin="1" end="${totalPages}" var="p">
-                <a href="/works?page=${p}" class="page-link${p == currentPage ? ' active' : ''}">${p}</a>
+                <a href="/works?page=${p}${empty selectedCategory ? '' : '&category='}${selectedCategory}" class="page-link${p == currentPage ? ' active' : ''}">${p}</a>
             </c:forEach>
         </div>
     </c:if>

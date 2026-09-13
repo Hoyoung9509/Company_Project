@@ -5,6 +5,10 @@
         <a href="/admin">대시보드</a>
         <a href="/admin/users">계정 관리</a>
         <a href="/admin/content">콘텐츠 관리</a>
+        <a href="/admin/work-categories">작업물 카테고리</a>
+        <a href="/admin/staff">직원 프로필</a>
+        <a href="/admin/process-steps">제작과정 관리</a>
+        <a href="/admin/history">연혁 관리</a>
         <a href="/admin/approvals">결재 관리</a>
         <a href="/admin/contacts">문의 관리</a>
         <a href="/admin/logs">감사 로그</a>

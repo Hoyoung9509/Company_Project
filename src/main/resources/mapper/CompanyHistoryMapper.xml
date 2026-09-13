@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.CompanyHistoryRepository">
+
+    <select id="findAll" resultType="CompanyHistoryVo">
+        SELECT id, year, description, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM companyhistory
+        ORDER BY sortOrder ASC, createdAt ASC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="CompanyHistoryVo">
+        SELECT id, year, description, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM companyhistory WHERE id = #{id}
+    </select>
+
+    <select id="findMaxSortOrder" resultType="Integer">
+        SELECT MAX(sortOrder) FROM companyhistory
+    </select>
+
+    <insert id="insert" parameterType="CompanyHistoryVo">
+        INSERT INTO companyhistory (id, year, description, sortOrder, createdAt, updatedAt)
+        VALUES (#{id}, #{year}, #{description}, #{sortOrder}, NOW(), NOW())
+    </insert>
+
+    <update id="update" parameterType="CompanyHistoryVo">
+        UPDATE companyhistory SET year=#{year}, description=#{description}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <update id="updateSortOrder">
+        UPDATE companyhistory SET sortOrder=#{sortOrder}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM companyhistory WHERE id=#{id}
+    </delete>
+
+</mapper>

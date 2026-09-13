@@ -33,11 +33,11 @@ scripts/stop.bat                # 포트 8080 프로세스 종료
 
 pnpm prisma migrate dev --name <설명>   # 스키마 변경 시 마이그레이션 생성
 pnpm prisma generate                    # Prisma Client 재생성 (lib/generated/prisma, 커밋 안 함)
-
-docker compose -f docker/docker-compose.yml up -d   # Elasticsearch + Kibana (검색 기능용, 선택)
 ```
 
 로컬 MySQL: `root/root`, DB `company_homepage`, JDBC `jdbc:mysql://localhost:3306/company_homepage?...` (`src/main/resources/application.yml`).
+
+`src/test/`는 현재 `.gitkeep`만 있고 실제 테스트 코드는 없다 — `./gradlew test`는 지금은 아무것도 검증하지 않는다.
 
 `.bat` 스크립트에는 한글을 쓰지 않는다 — cmd.exe가 CP949로 읽어서 파싱이 깨진다(`claude/6-stack-notes.md` 참고).
 
@@ -58,13 +58,9 @@ docker compose -f docker/docker-compose.yml up -d   # Elasticsearch + Kibana (�
 - 컬럼명과 VO 필드명이 다르면 `resultMap`으로 명시 매핑한다. `map-underscore-to-camel-case: true`는 `snake_case`만 변환하며, 이미 camelCase인 컬럼(`isPublished`, `createdAt`)은 그대로 매핑되므로 별도 처리 필요.
 - 파라미터 2개 이상이면 VO 또는 `@Param`으로 묶는다.
 
-## 검색 (Elasticsearch)
-
-`ElasticsearchSyncService` / `ContentSearchRepository` / `document/ContentDocument.java`가 MySQL의 콘텐츠를 ES로 동기화해 `SearchController` / `PortalSearchController`가 검색을 제공한다. 로컬 실행은 `docker/docker-compose.yml`로 띄운다 (`http://localhost:9200`).
-
 ## 배포
 
-`Dockerfile`은 `build/libs/*.war`를 `eclipse-temurin:17-jre-alpine` 위에서 실행한다 (먼저 `./gradlew build`로 war를 생성해야 함). `k8s/`에 namespace/configmap/secret/deployment/service가 있고, DB URL·ES URI는 ConfigMap, DB 자격증명은 Secret으로 주입된다.
+`Dockerfile`은 `build/libs/*.war`를 `eclipse-temurin:17-jre-alpine` 위에서 실행한다 (먼저 `./gradlew build`로 war를 생성해야 함). `k8s/`에 namespace/configmap/secret/deployment/service가 있고, DB URL은 ConfigMap, DB 자격증명은 Secret으로 주입된다.
 
 ## 참조 파일
 

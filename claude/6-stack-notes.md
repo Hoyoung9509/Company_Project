@@ -97,13 +97,6 @@
 
 ---
 
-## Elasticsearch (예정)
-
-- 현재 미구성. 도입 결정 시 이 섹션에 버전·설정·주의사항 추가.
-- Spring Data Elasticsearch 또는 High-Level REST Client 방향으로 검토 예정.
-
----
-
 ## Cloudflare Tunnel (로컬 PC 배포)
 
 - 로컬 PC를 `cloudflared` 터널로 외부에 노출할 때 사용. 포트포워딩·방화벽 설정 불필요 (아웃바운드 전용 연결이라 인바운드 포트를 안 염).

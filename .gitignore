@@ -60,3 +60,9 @@ local/
 
 # Local dev / tunnel logs
 *.log
+
+# Uploaded files (runtime data, not source)
+/uploads/
+
+# App/access logs (runtime data, not source)
+/logs/

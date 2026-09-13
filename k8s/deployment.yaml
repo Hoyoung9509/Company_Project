@@ -35,11 +35,6 @@ spec:
                 secretKeyRef:
                   name: app-secret
                   key: DB_PASSWORD
-            - name: SPRING_ELASTICSEARCH_URIS
-              valueFrom:
-                configMapKeyRef:
-                  name: app-config
-                  key: ES_URIS
           readinessProbe:
             httpGet:
               path: /

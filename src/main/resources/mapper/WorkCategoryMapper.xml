@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.WorkCategoryRepository">
+
+    <select id="findAll" resultType="WorkCategoryVo">
+        SELECT id, name, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM workcategory
+        ORDER BY sortOrder ASC, createdAt ASC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="WorkCategoryVo">
+        SELECT id, name, sortOrder, DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM workcategory WHERE id = #{id}
+    </select>
+
+    <select id="findMaxSortOrder" resultType="Integer">
+        SELECT MAX(sortOrder) FROM workcategory
+    </select>
+
+    <insert id="insert" parameterType="WorkCategoryVo">
+        INSERT INTO workcategory (id, name, sortOrder, createdAt, updatedAt)
+        VALUES (#{id}, #{name}, #{sortOrder}, NOW(), NOW())
+    </insert>
+
+    <update id="update" parameterType="WorkCategoryVo">
+        UPDATE workcategory SET name=#{name}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <update id="updateSortOrder">
+        UPDATE workcategory SET sortOrder=#{sortOrder}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM workcategory WHERE id=#{id}
+    </delete>
+
+</mapper>

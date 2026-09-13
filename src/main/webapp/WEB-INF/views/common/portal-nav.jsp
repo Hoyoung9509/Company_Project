@@ -6,7 +6,6 @@
         <a href="/portal/notice">공지사항</a>
         <a href="/portal/approval">결재함</a>
         <a href="/portal/directory">조직도</a>
-        <a href="/portal/search">통합검색</a>
         <a href="/portal/profile">내 정보</a>
     </nav>
     <div class="sidebar-footer">

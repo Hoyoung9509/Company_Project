@@ -26,7 +26,6 @@ dependencies {
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
     implementation("com.mysql:mysql-connector-j")
-    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
@@ -36,4 +35,12 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    jvmArgs = listOf("-Dfile.encoding=UTF-8", "-Dsun.jnu.encoding=UTF-8")
 }

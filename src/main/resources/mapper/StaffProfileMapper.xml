@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.company.homepage.repository.StaffProfileRepository">
+
+    <select id="findAll" resultType="StaffProfileVo">
+        SELECT id, name, position, photoUrl, bio, career, portfolio, sortOrder,
+               DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM staffprofile
+        ORDER BY sortOrder ASC, createdAt ASC
+    </select>
+
+    <select id="findById" parameterType="String" resultType="StaffProfileVo">
+        SELECT id, name, position, photoUrl, bio, career, portfolio, sortOrder,
+               DATE_FORMAT(createdAt, '%Y-%m-%d %H:%i:%s') AS createdAt
+        FROM staffprofile WHERE id = #{id}
+    </select>
+
+    <select id="findMaxSortOrder" resultType="Integer">
+        SELECT MAX(sortOrder) FROM staffprofile
+    </select>
+
+    <insert id="insert" parameterType="StaffProfileVo">
+        INSERT INTO staffprofile (id, name, position, photoUrl, bio, career, portfolio, sortOrder, createdAt, updatedAt)
+        VALUES (#{id}, #{name}, #{position}, #{photoUrl}, #{bio}, #{career}, #{portfolio}, #{sortOrder}, NOW(), NOW())
+    </insert>
+
+    <update id="update" parameterType="StaffProfileVo">
+        UPDATE staffprofile
+        SET name=#{name}, position=#{position}, photoUrl=#{photoUrl},
+            bio=#{bio}, career=#{career}, portfolio=#{portfolio}, updatedAt=NOW()
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateSortOrder">
+        UPDATE staffprofile SET sortOrder=#{sortOrder}, updatedAt=NOW() WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="String">
+        DELETE FROM staffprofile WHERE id=#{id}
+    </delete>
+
+</mapper>

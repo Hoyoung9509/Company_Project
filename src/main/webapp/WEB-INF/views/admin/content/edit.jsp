@@ -4,13 +4,16 @@
 <html lang="ko">
 <head><meta charset="UTF-8"><title>공지 수정 - 어드민</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/resources/css/style.css?v=10"></head>
+<link rel="stylesheet" href="/resources/css/style.css?v=37"></head>
 <body class="admin-body">
 <%@ include file="/WEB-INF/views/common/admin-nav.jsp" %>
 <main class="portal-main">
 <div class="portal-content">
     <a href="/admin/content" class="back-link">← 콘텐츠 관리로</a>
     <h2 class="page-title">공지 수정</h2>
+    <c:if test="${not empty error}">
+        <p class="msg-error">${error}</p>
+    </c:if>
     <form method="post" action="/admin/content/${content.id}/edit" class="portal-form">
         <div class="form-group">
             <label>타입</label>
@@ -28,6 +31,15 @@
             <div class="form-group">
                 <label>영상 링크 (유튜브, 선택)</label>
                 <input type="text" name="mediaUrl" value="${content.mediaUrl}" placeholder="https://www.youtube.com/watch?v=...">
+            </div>
+            <div class="form-group">
+                <label>작업물 카테고리 *</label>
+                <select name="workCategoryId" required>
+                    <option value="" disabled ${empty content.workCategoryId ? 'selected' : ''}>카테고리 선택</option>
+                    <c:forEach var="cat" items="${categories}">
+                        <option value="${cat.id}" ${cat.id == content.workCategoryId ? 'selected' : ''}>${cat.name}</option>
+                    </c:forEach>
+                </select>
             </div>
         </c:if>
         <div class="btn-group">
